@@ -1,4 +1,5 @@
 let p = document.getElementById("ola");
+
 async function ligaled () {
     const res = await fetch(`/ledligar`, {method: 'POST'});
     let data = await res.text();
@@ -11,3 +12,4 @@ async function desligarled () {
     let data = await res.text();
     p.innerHTML = data;
 }
+
