@@ -1,4 +1,5 @@
 let p = document.getElementById("ola");
+let datadia = new Date;
 
 async function ligaled () {
     const res = await fetch(`/ledligar`, {method: 'POST'});
