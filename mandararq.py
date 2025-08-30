@@ -4,6 +4,7 @@ user_input = input("Qual arquivo deseja mandar \n1-Server\n2-Script\n3-HTML\n4-t
 server = "scp C:/Users/tcc/server.js mottaaryana@192.168.0.97:/home/mottaaryana/tcc"
 script = "scp C:/Users/tcc/script.js mottaaryana@192.168.0.97:/home/mottaaryana/tcc/HTML"
 html = "scp C:/Users/tcc/HTML/teste.html mottaaryana@192.168.0.97:/home/mottaaryana/tcc/HTML"
+#obs: lembre-se de trocar o ip caso o rasp esteja conectado a rede do celular
 if user_input == '1':
     os.system(server)
     print("Server enviado")
