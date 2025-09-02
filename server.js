@@ -11,13 +11,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/ledligar', (req, res) => {
-    led1.servoWrite(1); // Set to central position (~90°)
-    res.send("Led Ligado!")
+    led1.servoWrite(2000); // valor ~1.5ms → 90 graus
+    res.status(200).send("Led Ligado!")
 })
 
 app.post('/leddesligar', (req, res) => {
-    led1.servoWrite(0); // Set to ~0° position
-    res.send("Led Desligado!")
+    led1.servoWrite(1500);
+    res.status(200).send("Led Desligado!")
 })
 
 
