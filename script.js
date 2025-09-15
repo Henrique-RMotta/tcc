@@ -1,31 +1,45 @@
-
 let horas = [];
-    setInterval (() => {
-    const agora = new Date;
-    let horarioCadastrado = horas.find((cadastro) => 
-        cadastro.dia === agora.getDate() &&
-        cadastro.hora === agora.getHours() &&
-        cadastro.minuto === agora.getMinutes()
-    );
-    let horariochego = false;
-    if (horarioCadastrado) {
-        horariochego = true;
-        console.log("Sim está na hora !");
-        if(horariochego){
-        ligaled();
-        setTimeout(() => {
-        horariochego = false;
-        }, 60*500);
+    setInterval(() => {
+        const agora = new Date();
+        let horarioCadastrado = horas.find((cadastro) => 
+            cadastro.dia === agora.getDate() &&
+            cadastro.hora === agora.getHours() &&
+            cadastro.minuto === agora.getMinutes()
+        );
+        if (horarioCadastrado) {
+            ligaled();
+        } else {
+            console.log("já passou, ou ainda não está na hora");
+            desligarled();
         }
-    } else {
-        console.log("já passou, ou ainda não está na hora");
-        desligarled();
-    }
-    console.log(horarioCadastrado);
-    console.log(horas);
-    console.log("Hoje é: " + agora.getDate());
-    console.log("São: " + agora.getHours() + ":" + agora.getMinutes());
-    },60*600)
+        let p = document.getElementById("ola2");
+        p.innerHTML = `Find:${horarioCadastrado}--
+        Horas Cadastradas:${horas}--
+        Hoje é: ${agora.getDate()}--
+        São:${agora.getHours()}:${agora.getMinutes()}`
+        console.log(horarioCadastrado);
+        console.log(horas);
+    }, 60 * 600);
+
+    setInterval(() => {
+        const agora = new Date;
+       let horaStr = agora.getHours().toString().padStart(2, '0');
+        let minStr = agora.getMinutes().toString().padStart(2, '0');
+        document.getElementById("hora1").innerHTML = `<span>${horaStr[0]}</span>`;
+        document.getElementById("hora2").innerHTML = `<span>${horaStr[1]}</span>`;
+        document.getElementById("min1").innerHTML = `<span>${minStr[0]}</span>`;
+        document.getElementById("min2").innerHTML = `<span>${minStr[1]}</span>`;
+    }, 1000);
+
+function marcar() {
+    const agora = new Date; 
+    let p = document.getElementById("ola2");
+    let dia = agora.getDate();
+    let hora = agora.getHours();
+    let minuto = agora.getMinutes();
+    horas.push({dia,hora,minuto})
+    p.innerHTML = "Cadastrado"
+}
 function mandar() {
 let dia = parseInt(document.getElementById("dia").value);
 let hora = parseInt(document.getElementById("hora").value);
@@ -56,4 +70,8 @@ async function desligarled() {
 }
 
 
-
+function menu() {
+    setTimeout(() => {
+            window.location.href = "menu.html";
+        }, 1000);
+}

@@ -1,0 +1,71 @@
+.lilita-one-regular {
+  font-family: "Lilita One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+body {
+    position: relative;
+    background-color: #F9E4FF;
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+ button{
+    position: absolute;
+    height: 75px;
+    width: 200px;
+    top: 30px;  
+    right: 30px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-top: 0px;
+    margin-right: 0px;
+    color: #FFFFFF;
+    -webkit-text-stroke-width: 1px; /* Define a largura do contorno */
+    -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+    border-radius: 10px;
+    font-size: 50px;
+    background-color: #DA56FF;
+    font-family: "Lilita One";
+    padding: 10px;
+    border-color: #A43CC0;
+}
+
+.horario {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.horario h1 {
+  font-family: "Lilita One";
+  font-size: 120px;
+  color: #DA56FF;
+}
+
+#hora1, #hora2, #min1, #min2 {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 228px;
+  height: 313px;
+  background-color: #DA56FF;
+  border-radius: 50%;
+  margin: 0 5px;
+  display:flex;
+  font-size: 200px;
+  color: white;
+  font-family: "Lilita One";
+  border-color: #A43CC0;
+  -webkit-text-stroke-width: 2px; /* Define a largura do contorno */
+  -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+}
