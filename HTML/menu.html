@@ -25,7 +25,7 @@
         <button onclick="add(0)" >0</button>
         <button onclick="verificar()">→</button>
     </div>
-    <div class="cancelar">
+    <div class="cancelar" id="cancelar">
         <button onclick="cancelar()">CANCELAR</button>
     </div>
     <div id="menu" class="hidden">
@@ -139,10 +139,6 @@
             flex-direction: column;
             align-items: center;
             gap: 30px; /* Altere o valor para o espaçamento desejado */
-        }
-
-        #senha button :hover {
-            background-color:#F4F197 ;
         }
         .pressionado {
             background-color: #F4F197 !important;

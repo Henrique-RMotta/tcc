@@ -93,8 +93,13 @@ function verificar() {
     const correta = senhadigitada.every((val, idx) => val === senhacorreta[idx]);
     if (correta && senhadigitada.length === senhacorreta.length) {
         a.innerHTML = "liberado";
+        setTimeout(() => {
+            a.innerHTML = "";
+        }, 5000);
+        
         senhadigitada = [];
         document.getElementById("senha").classList.add("hidden");
+        document.getElementById("cancelar").classList.add("hidden");
         document.getElementById("titulo-senha").classList.add("hidden");
         document.getElementById("menu").classList.remove("hidden");
     } else {
@@ -114,23 +119,23 @@ function remover(){
 function programar() {
 setTimeout(() => {
 window.location.href = "programar.html";
-}, 1000);
+}, 1);
 }
 
 function verhorarios () {
 setTimeout(() => {
 window.location.href = "verhorarios.html";
-}, 1000);
+}, 1);
 }
 
 function configurar() {
 setTimeout(() => {
 window.location.href = "configurar.html";
-}, 1000);
+}, 1);
 }
 
 function cancelar() {
 setTimeout(() => {
 window.location.href = "página_inicial.html";
-}, 1000);
+}, 1);
 }
