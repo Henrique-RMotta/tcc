@@ -8,7 +8,6 @@ html2 = "scp C:/Users/tcc/HTML/página_inicial.html mottaaryana@192.168.0.97:/ho
 html3 = "scp C:/Users/tcc/HTML/configurar.html mottaaryana@192.168.0.97:/home/mottaaryana/tcc/HTML"
 html4 = "scp C:/Users/tcc/HTML/verhorarios.html mottaaryana@192.168.0.97:/home/mottaaryana/tcc/HTML"
 html5 = "scp C:/Users/tcc/HTML/programar.html mottaaryana@192.168.0.97:/home/mottaaryana/tcc/HTML"
-css = "scp C:/Users/tcc/HTML/style.css mottaaryana@192.168.0.97:/home/mottaaryana/tcc/HTML"
 #obs: lembre-se de trocar o ip caso o rasp esteja conectado a rede do celular
 if user_input == '1':
     os.system(server)
@@ -28,9 +27,6 @@ elif user_input == '4':
     os.system(script)
     os.system(html)
     print("Todos foram enviados")
-elif user_input == '5': 
-    os.system(css)
-    print("css enviado !")
 else:
     print("Opção inválida")
     
