@@ -1,3 +1,35 @@
+let horas = [];
+    setInterval(() => {
+        const agora = new Date();
+        let horarioCadastrado = horas.find((cadastro) => 
+            cadastro.dia === agora.getDate() &&
+            cadastro.hora === agora.getHours() &&
+            cadastro.minuto === agora.getMinutes()
+        );
+        if (horarioCadastrado) {
+            ligaled();
+        } else {
+            console.log("já passou, ou ainda não está na hora");
+            desligarled();
+        }
+        let p = document.getElementById("ola2");
+        p.innerHTML = `Find:${horarioCadastrado}--
+        Horas Cadastradas:${horas}--
+        Hoje é: ${agora.getDate()}--
+        São:${agora.getHours()}:${agora.getMinutes()}`
+        console.log(horarioCadastrado);
+        console.log(horas);
+    }, 60 * 600);
+
+    setInterval(() => {
+        const agora = new Date;
+       let horaStr = agora.getHours().toString().padStart(2, '0');
+        let minStr = agora.getMinutes().toString().padStart(2, '0');
+        document.getElementById("hora1").innerHTML = `<span>${horaStr[0]}</span>`;
+        document.getElementById("hora2").innerHTML = `<span>${horaStr[1]}</span>`;
+        document.getElementById("min1").innerHTML = `<span>${minStr[0]}</span>`;
+        document.getElementById("min2").innerHTML = `<span>${minStr[1]}</span>`;
+    }, 1000);
 let p = document.getElementById("ola");
 
 async function ligaled () {
@@ -47,10 +79,12 @@ function verificar() {
         document.getElementById("cancelar").classList.add("hidden");
         document.getElementById("titulo-senha").classList.add("hidden");
         document.getElementById("menu").classList.remove("hidden");
+        document.getElementById("voltar").classList.remove("hidden");
     } else {
         a.innerHTML = "Senha incoreta";
         senhadigitada = [];
         document.getElementById("menu").classList.add("hidden");
+        document.getElementById("voltar").classList.add("hidden");
         document.querySelectorAll("#senha button").forEach(btn => btn.classList.remove("pressionado"));
     }        
 }
@@ -58,6 +92,7 @@ function verificar() {
 function remover(){
     senhadigitada = [];
     document.getElementById("menu").classList.add("hidden")
+    document.getElementById("voltar").classList.add("hidden")
     document.querySelectorAll("#senha button").forEach(btn => btn.classList.remove("pressionado"));
 }
 
@@ -83,4 +118,11 @@ function cancelar() {
 setTimeout(() => {
 window.location.href = "página_inicial.html";
 }, 1);
+}
+
+function programar2(dia) {
+    document.querySelectorAll("#botoes").forEach(btn => btn.classList.add("hidden"));
+    document.querySelectorAll("#inputs").forEach(btn => btn.classList.remove("hidden"));
+    let diaescolhido = [];
+    diaescolhido.push(dia);
 }

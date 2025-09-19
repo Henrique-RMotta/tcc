@@ -22,20 +22,24 @@
      <script src="script.js"></script>
      <style>
             .lilita-one-regular {
-            font-family: "Lilita One", sans-serif;
-            font-weight: 400;
-            font-style: normal;
+                font-family: "Lilita One", sans-serif;
+                font-weight: 400;
+                font-style: normal;
             }
             body {
                 position: relative;
                 background-color: #F9E4FF;
                 min-height: 100vh;
                 height: 100vh;
+                max-width: 1024px;
+                max-height: 768px;
+                overflow: hidden;
                 display: flex;
                 text-align: center;
                 justify-content: center;
                 align-items: center;
                 cursor: none ;
+                
             }
             button{
                 position: absolute;
@@ -58,39 +62,42 @@
                 font-family: "Lilita One";
                 padding: 10px;
                 border-color: #A43CC0;
+                
             }
 
             .horario {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
             }
 
             .horario h1 {
-            font-family: "Lilita One";
-            font-size: 120px;
-            color: #DA56FF;
+                font-family: "Lilita One";
+                font-size: 120px;
+                color: #DA56FF;
             }
 
             #hora1, #hora2, #min1, #min2 {
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            width: 228px;
-            height: 313px;
-            background-color: #DA56FF;
-            border-radius: 50%;
-            margin: 0 5px;
-            display:flex;
-            font-size: 200px;
-            color: white;
-            font-family: "Lilita One";
-            border-color: #A43CC0;
-            -webkit-text-stroke-width: 2px; /* Define a largura do contorno */
-            -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
-            border-width: 2px;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                width: 228px;
+                height: 313px;
+                background-color: #DA56FF;
+                border-radius: 50%;
+                display:flex;
+                font-size: 200px;
+                color: white;
+                font-family: "Lilita One";
+                border-width: 5px;
+                border-color: #A43CC0;
+                border-style: solid;
+                margin-left: 5px;
+                margin-right: 5px;
+                -webkit-text-stroke-width: 2px; /* Define a largura do contorno */
+                -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
             }
      </style>
 </body>

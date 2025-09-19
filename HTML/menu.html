@@ -32,7 +32,7 @@
         <button onclick="programar()">PROGRAMAR</button>
         <button onclick="verhorarios()">VER HORÁRIOS</button>
         <button onclick="configurar()">CONFIGURAR</button>
-        <div class="voltar">
+        <div id="voltar"class="hidden">
         <button onclick="window.history.back()">VOLTAR</button>
         </div>
     </div>
@@ -42,12 +42,12 @@
 <script src="/script.js"></script>
 <style>
         .lilita-one-regular {
-        font-family: "Lilita One", sans-serif;
-        font-weight: 400;
-        font-style: normal;
+            font-family: "Lilita One", sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
         .hidden {
-        display: none !important;
+            display: none !important;
         }
         body {
             position: relative;
@@ -59,6 +59,9 @@
             justify-content: center;
             align-items: center;
             cursor: none;
+            max-width: 1024px;
+            max-height: 768px;
+            overflow: hidden;
         }
         .container {
             display: flex;
@@ -96,27 +99,35 @@
             border-color: #A43CC0;
             border-radius: 10px;
             border-width: 3px;
+            border-style: solid;
+            box-shadow: 0px 10px 4px #A43CC0;
         }
         h1 {
             font-family: "Lilita One";
             font-size: 60px;
             color: black;
         }
-
+        p{
+            font-family: "Lilita One";
+            font-size: 7px;
+            color: black;
+        }
         .cancelar button {
             position: absolute;
             bottom: 10px;
             left: 0;
-            margin: 0;
+            margin-bottom: 10px;
             color: #FFFFFF;
             -webkit-text-stroke-width: 1px; /* Define a largura do contorno */
             -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
             border-radius: 10px;
-            font-size: 50px;
+            font-size: 40px;
             background-color: #DA56FF;
             font-family: "Lilita One";
             padding: 10px;
             border-color: #A43CC0;
+            border-width: 1px;
+            border-style: solid;
         }
 
         #menu button{
@@ -132,43 +143,48 @@
             padding: 10px;
             -webkit-text-stroke-width: 2px; /* Define a largura do contorno */
             -webkit-text-stroke-color: #BFBD75; /* Define a cor do contorno */
-            color: black;
+            color: #FFFFFF;
             border-color: #BFBD75;
             border-width: 4px;
+            border-style: solid;
             font-size: 40px;
+            box-shadow:0px 10px 4px #BFBD75 ;
+            border-radius: 10px;
             
         }
         #menu {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            text-align: center;
             gap: 30px; /* Altere o valor para o espaçamento desejado */
         }
         .pressionado {
             background-color: #F4F197 !important;
         }
-            .voltar {
-        margin-top: 30px;
-        left: 0px;
-        position: absolute;
-        margin-left: 20px;
-        margin-bottom: 20px;
-        
-    }
+        #voltar {
+            margin-top: 30px;
+            left: 10px;
+            position: absolute;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            bottom: 20px;
+        }
 
-    .voltar button {
-        border-radius:31px;
-        width: 130px;
-        height: 40px;
-        font-size: 27px;
-        -webkit-text-stroke-width: 2px; /* Define a largura do contorno */
-        -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
-        color: white;
-        background-color:#DA56FF ;
-        box-shadow: 0px 8px 4px #A43CC0; ;
-        
-        font-family: "Lilita One", sans-serif;
-    }
+        #voltar button {
+            border-radius:31px;
+            width: 130px;
+            height: 40px;
+            font-size: 27px;
+            -webkit-text-stroke-width: 2px; /* Define a largura do contorno */
+            -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+            color: white;
+            background-color:#DA56FF ;
+            box-shadow: 0px 8px 4px #A43CC0; ;
+            font-family: "Lilita One", sans-serif;
+            border: none;
+        }
  
 </style>
 </html>

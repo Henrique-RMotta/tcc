@@ -11,13 +11,73 @@
 <body>
     <div class="container">
     <div id="botoes">
-        <button>SEGUNDA</button>
-        <button>TERÇA</button>
-        <button>QUARTA</button>
-        <button>QUINTA</button>
-        <button>SEXTA</button>
-        <button>SÁBADO</button>
-        <button>DOMINGO</button>
+        <button onclick="programar2('segunda')">SEGUNDA</button>
+        <button onclick="programar2('terca')">TERÇA</button>
+        <button onclick="programar2('quarta')">QUARTA</button>
+        <button onclick="programar2('quinta')">QUINTA</button>
+        <button onclick="programar2('sexta')">SEXTA</button>
+        <button onclick="programar2('sabado')">SÁBADO</button>
+        <button onclick="programar2('domingo')">DOMINGO</button>
+    </div>
+    <div id="inputs" class="hidden">
+        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
+        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+        <select id="slot">
+            <option value="" >slot</option>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5</option>
+        </select>
+    </div>
+    <div id="inputs" class="hidden">
+        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
+        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+        <select id="slot">
+            <option value="" >slot</option>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5</option>
+        </select>
+    </div>
+    <div id="inputs" class="hidden">
+        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
+        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+        <select id="slot">
+            <option value="" >slot</option>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5</option>
+        </select>
+    </div>
+    <div id="inputs" class="hidden">
+        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
+        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+        <select id="slot">
+            <option value="" >slot</option>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5</option>
+        </select>
+    </div>
+    <div id="inputs" class="hidden">
+        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
+        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+        <select id="slot">
+            <option value="" >slot</option>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5</option>
+        </select>
     </div>
     <div class="voltar">
         <button onclick="window.history.back()">VOLTAR</button>
@@ -43,6 +103,9 @@
         justify-content: center;
         align-items: center;
         cursor: none;
+        max-width: 1024px;
+        max-height: 768px;
+        overflow: hidden;
     }
 
     #botoes {
@@ -73,20 +136,21 @@
         border-width: 0px;
         border-radius: 5px;
         box-shadow: 0px 10px 4px #BFBD75; ;
+        border-style: solid;
     }
     #botoes button:last-child {
-    grid-column: 1 / -1;  /* pega a linha inteira */
-    justify-self: center;
+        grid-column: 1 / -1;  /* pega a linha inteira */
+        justify-self: center;
     }
     .voltar {
         margin-top: 30px;
-        left: 0px;
+        left: 10px;
         position: absolute;
         margin-left: 20px;
         margin-bottom: 20px;
-        
+        bottom: 20px;
     }
-
+    
     .voltar button {
         border-radius:31px;
         width: 130px;
@@ -97,9 +161,71 @@
         color: white;
         background-color:#DA56FF ;
         box-shadow: 0px 8px 4px #A43CC0; ;
-        
         font-family: "Lilita One", sans-serif;
+        border: none;
     }
+
+    #inputs {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin-top: 10px;
+    }
+    #inputs input {
+        height: 70px;
+        width: 250px;
+        border-radius: 50px;
+        border-style: solid;
+        border-width: 2px;
+        background-color: #ffffff;
+        border-color: #7F32B3;
+        text-align: center;
+        font-family: "Lilita One";
+        font-size: 50px;
+        -webkit-text-stroke-width: 2px; /* Define a largura do contorno */
+        -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+        color: #FFFFFF;
+}
+
+::placeholder{
+        color: #FFFFFF;
+}
+
+#slot,#inputs select {
+        height: 70px;
+        width: 250px;
+        border-radius: 50px;
+        border-style: solid;
+        border-width: 2px;
+        background-color: #ffffff;
+        border-color: #7F32B3;
+        text-align: center;
+        font-family: "Lilita One";
+        font-size: 50px;
+        -webkit-text-stroke-width: 2px; /* Define a largura do contorno */
+        -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+        color: #FFFFFF;
+        box-shadow: 0px 10px 5px #7F32B3;
+        appearance: none;          /* Remove o estilo padrão */
+        -webkit-appearance: none;  /* Safari/Chrome */
+        -moz-appearance: none;     /* Firefox */
+        background-color: #ffffff; /* mantém o fundo */
+        color: #FFFFFF;            /* cor da fonte */
+        position: relative;
+        background: #ffffff url("data:image/svg+xml;utf8,<svg fill='purple' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 20px center;
+        background-size: 20px;
+        padding-right: 40px; /* espaço pro ícone não sobrepor o texto */
+    }
+
+#slot option, 
+#inputs select option {
+    background-color: #ffffff; /* fundo do menu suspenso */
+    color: #7F32B3;            /* cor da letra no menu suspenso */
+    font-size: 30px;
+}
 </style>
 <script src="/script.js"></script>
 </html>
