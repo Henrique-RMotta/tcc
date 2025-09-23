@@ -7,16 +7,16 @@ let horas = [];
             cadastro.minuto === agora.getMinutes()
         );
         if (horarioCadastrado) {
-            ligaled();
+            //ligaled();
         } else {
             console.log("já passou, ou ainda não está na hora");
-            desligarled();
+            //desligarled();
         }
-        let p = document.getElementById("ola2");
+        /*let p = document.getElementById("ola2");
         p.innerHTML = `Find:${horarioCadastrado}--
         Horas Cadastradas:${horas}--
         Hoje é: ${agora.getDate()}--
-        São:${agora.getHours()}:${agora.getMinutes()}`
+        São:${agora.getHours()}:${agora.getMinutes()}`*/
         console.log(horarioCadastrado);
         console.log(horas);
     }, 60 * 600);
@@ -30,30 +30,35 @@ let horas = [];
         document.getElementById("min1").innerHTML = `<span>${minStr[0]}</span>`;
         document.getElementById("min2").innerHTML = `<span>${minStr[1]}</span>`;
     }, 1000);
-let p = document.getElementById("ola");
 
-async function ligaled () {
+
+/*async function ligaled () {
     const res = await fetch(`/ledligar`, {method: 'POST'});
     let data = await res.text();
-    p.innerHTML = data;
 
 }
 
 async function desligarled() {
-    let p = document.getElementById("ola");
     const res = await fetch(`/leddesligar`, {method: 'POST'});
     let data = await res.text();
-    p.innerHTML = data;
-}
+}*/
 
 function menu() {
     setTimeout(() => {
             window.location.href = "menu.html";
         }, 1000);
 }
-
+const senhacorreta = [];
+console.log(senhacorreta);
+async function verSenha() {
+    const res = await fetch ("/verSenha",{
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    });
+    let data = await res.json();
+    senhacorreta.push(data.senha);
+}
 let senhadigitada = [];
-const senhacorreta = [1,2,3,4];
 document.getElementById("menu").classList.add("hidden")
 function add(num){
     senhadigitada.push(num);
@@ -66,14 +71,8 @@ function add(num){
 }
 
 function verificar() {
-    a = document.getElementById("a");
-    const correta = senhadigitada.every((val, idx) => val === senhacorreta[idx]);
+    const correta = senhadigitada.join("") === senhacorreta.join("");
     if (correta && senhadigitada.length === senhacorreta.length) {
-        a.innerHTML = "liberado";
-        setTimeout(() => {
-            a.innerHTML = "";
-        }, 5000);
-        
         senhadigitada = [];
         document.getElementById("senha").classList.add("hidden");
         document.getElementById("cancelar").classList.add("hidden");
@@ -81,7 +80,6 @@ function verificar() {
         document.getElementById("menu").classList.remove("hidden");
         document.getElementById("voltar").classList.remove("hidden");
     } else {
-        a.innerHTML = "Senha incoreta";
         senhadigitada = [];
         document.getElementById("menu").classList.add("hidden");
         document.getElementById("voltar").classList.add("hidden");
@@ -120,9 +118,18 @@ window.location.href = "página_inicial.html";
 }, 1);
 }
 
-function programar2(dia) {
+async function programar2(dia) {
     document.querySelectorAll("#botoes").forEach(btn => btn.classList.add("hidden"));
     document.querySelectorAll("#inputs").forEach(btn => btn.classList.remove("hidden"));
-    let diaescolhido = [];
-    diaescolhido.push(dia);
+    const nome = document.getElementById("nome").value;
+    const slot = document.getElementById("slot").value;
+    const horaMinuto = document.getElementById("hora").value; 
+    const [hora, minuto] = horaMinuto.split(":").map(Number);
+    await fetch ("/addRemedio",{
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({nome,dia,hora,minuto,slot})
+    });
+     
 }
+
