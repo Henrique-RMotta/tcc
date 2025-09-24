@@ -11,15 +11,35 @@
 <body>
     <div class="container">
         <div id="botoes">
-            <button onclick="alterarSenha()">ALTERAR SENHA</button>
+            <button onclick="alterarSenhaMenu()">ALTERAR SENHA</button>
             <button>ACESSIBILIDADE</button>
             <button>HORA/DATA</button>
         </div>
+        <h1 id="titulo-senha" class="hidden">Insira a Nova Senha de Acesso</h1>
+        <div id="senha" class="hidden">
+            <button onclick="addnova(1)" >1</button>
+            <button onclick="addnova(2)" >2</button>
+            <button onclick="addnova(3)" >3</button>
+            <button onclick="addnova(4)" >4</button>
+            <button onclick="addnova(5)" >5</button>
+            <button onclick="addnova(6)" >6</button>
+            <button onclick="addnova(7)" >7</button>
+            <button onclick="addnova(8)" >8</button>
+            <button onclick="addnova(9)" >9</button>
+            <button onclick="removernova()">X</button>
+            <button onclick="addnova(0)" >0</button>
+            <button onclick="alterarSenhaMenu()">→</button>
+        </div>
+        <div class="hidden" id="cancelar">
+            <button onclick="cancelar()">CANCELAR</button>
+         </div>
         <div class="voltar">
             <button onclick="window.history.back()"> VOLTAR</button>
         </div>
+        <p id="msg"></p>
     </div>
 </body>
+<script src="/script.js"></script>
 <style>
      .lilita-one-regular {
         font-family: "Lilita One", sans-serif;
@@ -28,6 +48,15 @@
         }
     .hidden {
         display: none !important;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        position: relative;
     }
     body {
         position: relative;
@@ -42,7 +71,7 @@
         max-width: 1024px;
         max-height: 768px;
         overflow: hidden;
-    }
+}
     .voltar {
         margin-top: 30px;
         left: 10px;
@@ -51,7 +80,11 @@
         margin-bottom: 20px;
         bottom: 20px;
     }
-
+    p {
+        font-family: "Lilita One";
+        font-size: 20px;
+        color: black;
+    }
     .voltar button {
         border-radius:31px;
         width: 130px;
@@ -95,5 +128,64 @@
         box-shadow:0px 10px 4px #BFBD75 ;
         border-radius: 10px;
     }
+    #senha {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        justify-items: center;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+        
+    }
+    #senha button {
+        background-color: #FFFFFF;
+        -webkit-text-stroke-width: 1px; /* Define a largura do contorno */
+        -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+        height: 80px;
+        width: 80px;
+        font-family: "Lilita One", sans-serif;
+        font-size: 80px;
+        color: #A43CC0;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        border-color: #A43CC0;
+        border-radius: 10px;
+        border-width: 3px;
+        border-style: solid;
+        box-shadow: 0px 10px 4px #A43CC0;
+    }
+    h1 {
+        font-family: "Lilita One";
+        font-size: 60px;
+        color: black;
+    }
+    p{
+        font-family: "Lilita One";
+        font-size: 7px;
+        color: black;
+    }
+    #cancelar button {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        margin-bottom: 10px;
+        color: #FFFFFF;
+        -webkit-text-stroke-width: 1px; /* Define a largura do contorno */
+        -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+        border-radius: 10px;
+        font-size: 40px;
+        background-color: #DA56FF;
+        font-family: "Lilita One";
+        padding: 10px;
+        border-color: #A43CC0;
+        border-width: 1px;
+        border-style: solid;
+    }
+    .pressionado {
+        background-color: #F4F197 !important;
+     }
 </style>
 </html>

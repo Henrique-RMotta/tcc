@@ -11,6 +11,7 @@
 <body>
     <div class="container">
         <button onclick="menu()">MENU</button>
+        <p id="datahoje"></p>
         <div class="horario">
             <div  id="hora1">1</div>
             <div id="hora2">1</div>
@@ -57,6 +58,7 @@
                 -webkit-text-stroke-width: 1px; /* Define a largura do contorno */
                 -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
                 border-radius: 10px;
+                border-style: solid;
                 font-size: 50px;
                 background-color: #DA56FF;
                 font-family: "Lilita One";
@@ -64,7 +66,17 @@
                 border-color: #A43CC0;
                 
             }
-
+            p {
+                display: flex;
+                align-items: center;
+                text-align: center;
+                justify-content: center;
+                font-family: "Lilita One";
+                color: #FFFFFF;
+                -webkit-text-stroke-width: 2.5px; /* Define a largura do contorno */
+                -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+                font-size: 55px;
+            }
             .horario {
                 display: flex;
                 flex-direction: row;

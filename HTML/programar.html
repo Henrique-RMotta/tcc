@@ -19,9 +19,9 @@
         <button onclick="programar2('sabado')">SÁBADO</button>
         <button onclick="programar2('domingo')">DOMINGO</button>
     </div>
-    <div id="inputs" class="hidden">
-        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
-        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+    <div class="inputs hidden">
+        <input type="text" id="nome" onclick="setInput('nome')" placeholder="NOME">
+        <input type="text" id="hora" onclick="setInput('hora')" placeholder="00:00">
         <select id="slot">
             <option value="" >slot</option>
             <option value="1" >1</option>
@@ -31,9 +31,9 @@
             <option value="5" >5</option>
         </select>
     </div>
-    <div id="inputs" class="hidden">
-        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
-        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+    <div class="inputs hidden">
+        <input type="text" id="nome" onclick="setInput('nome')" placeholder="NOME">
+        <input type="text" id="hora" onclick="setInput('hora')" placeholder="00:00">
         <select id="slot">
             <option value="" >slot</option>
             <option value="1" >1</option>
@@ -43,9 +43,9 @@
             <option value="5" >5</option>
         </select>
     </div>
-    <div id="inputs" class="hidden">
-        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
-        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+    <div class="inputs hidden">
+        <input type="text" id="nome" onclick="setInput('nome')" placeholder="NOME">
+        <input type="text" id="hora" onclick="setInput('hora')" placeholder="00:00">
         <select id="slot">
             <option value="" >slot</option>
             <option value="1" >1</option>
@@ -55,21 +55,9 @@
             <option value="5" >5</option>
         </select>
     </div>
-    <div id="inputs" class="hidden">
-        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
-        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
-        <select id="slot">
-            <option value="" >slot</option>
-            <option value="1" >1</option>
-            <option value="2" >2</option>
-            <option value="3" >3</option>
-            <option value="4" >4</option>
-            <option value="5" >5</option>
-        </select>
-    </div>
-    <div id="inputs" class="hidden">
-        <input type="text" oninput="programar2()" placeholder="NOME" id="nome">
-        <input type="text" oninput="programar2()" placeholder="00:00" id="hora">
+    <div class="inputs hidden">
+        <input type="text" id="nome" onclick="setInput('nome')" placeholder="NOME">
+        <input type="text" id="hora" onclick="setInput('hora')" placeholder="00:00">
         <select id="slot">
             <option value="" >slot</option>
             <option value="1" >1</option>
@@ -82,9 +70,55 @@
     <div class="voltar">
         <button onclick="window.history.back()">VOLTAR</button>
     </div>
+    <div class="keyboard" id="teclado">
+    <div class="row">
+      <button class="key">Q</button>
+      <button class="key">W</button>
+      <button class="key">E</button>
+      <button class="key">R</button>
+      <button class="key">T</button>
+      <button class="key">Y</button>
+      <button class="key">U</button>
+      <button class="key">I</button>
+      <button class="key">O</button>
+      <button class="key">P</button>
+    </div>
+    <div class="row">
+      <div class="key">A</div>
+      <div class="key">S</div>
+      <div class="key">D</div>
+      <div class="key">F</div>
+      <div class="key">G</div>
+      <div class="key">H</div>
+      <div class="key">J</div>
+      <div class="key">K</div>
+      <div class="key">L</div>
+    </div>
+    <div class="row">
+      <div class="key">Z</div>
+      <div class="key">X</div>
+      <div class="key">C</div>
+      <div class="key">V</div>
+      <div class="key">B</div>
+      <div class="key">N</div>
+      <div class="key">M</div>
+    </div>
+    <div class="row">
+      <div class="key space"></div>
+    </div>
+  </div>
     </div>
 </body>
 <style>
+    body, .container {
+        width: 100vw;
+        height: 100vh;
+        max-width: 1024px;
+        max-height: 768px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
     .lilita-one-regular {
         font-family: "Lilita One", sans-serif;
         font-weight: 400;
@@ -165,7 +199,7 @@
         border: none;
     }
 
-    #inputs {
+    .inputs {
         display: flex;
         flex-direction: row;
         text-align: center;
@@ -174,7 +208,7 @@
         gap: 30px;
         margin-top: 10px;
     }
-    #inputs input {
+    .inputs input {
         height: 70px;
         width: 250px;
         border-radius: 50px;
@@ -194,7 +228,7 @@
         color: #FFFFFF;
 }
 
-#slot,#inputs select {
+#slot,.inputs select {
         height: 70px;
         width: 250px;
         border-radius: 50px;
@@ -221,11 +255,61 @@
     }
 
 #slot option, 
-#inputs select option {
+.inputs select option {
     background-color: #ffffff; /* fundo do menu suspenso */
     color: #7F32B3;            /* cor da letra no menu suspenso */
     font-size: 30px;
 }
+
+.keyboard {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1024px;
+    height: auto;
+    padding: 15px 0;
+    background: #DA56FF;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 10;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 5px 0;
+}
+
+.key {
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    color: #DA56FF;
+    font-size: 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    font-weight: bold;
+    transition: 0.1s;
+}
+.key:active {
+    transform: scale(0.9);
+    background: #f1c6ff;
+}
+.key.space {
+    width: 300px;
+}
+
 </style>
 <script src="/script.js"></script>
 </html>

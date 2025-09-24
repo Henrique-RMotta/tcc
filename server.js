@@ -27,7 +27,19 @@ db.get("SELECT COUNT(*) as contador FROM senha", [], (err,row) => {
     db.run("INSERT INTO senha (senha) VALUES(?)", ["1234"]);
   }
 });
-app.get("/verSenha",(req,res) => {
+
+app.post('/alterarSenha', (req,res) => {
+  const { senhanova } = req.body;
+  if (!senhanova) return res.status(400).send("Informe a nova senha");
+  db.run("UPDATE senha set senha = ?",[senhanova],function(err) {
+    if (err) {
+      res.status(500).send("Erro ao trocar senha");
+    } else {
+      res.send("Senha alterada com sucesso!");
+    }
+  })
+})
+app.get('/verSenha',(req,res) => {
   db.get("SELECT senha from senha LIMIT 1", [], (err,row) => {
     if(err) return res.status(500).send("Erro no Banco de Dados");
     res.send(row);
