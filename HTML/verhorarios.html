@@ -1,14 +1,263 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
-</head>
-<body>
-    <h1>Ver Horários</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dispenser de Remédios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+    <div class="remediosCadastrados">
+      <!-- <div class="remedioCadastrado">
+        <div id="remedioInfo">
+          <p></p>
+        </div>
+        <button onclick="abrirEditar()">
+          <img
+            src="https://cdn.discordapp.com/attachments/1132706730900459601/1421598752770097265/image.png?ex=68d99e82&is=68d84d02&hm=ee4fe9d639fe593e1ed4d38773b570d30f13ec7c98db2826633ff7efc07d409b&"
+            alt=""
+          />
+        </button>
+        <button onclick="remover()">
+          <img
+            src="https://cdn.discordapp.com/attachments/1132706730900459601/1421598915576336516/image.png?ex=68d99ea9&is=68d84d29&hm=cd1f761c25146711a1c45a211d96af65adf2e8ed83c4fd0402f6b1e231e7b7af&"
+            alt=""
+          />
+        </button>
+      </div> -->
+    </div>
+     <div class="inputs  hidden">
+            <input type="text" id="nome-editar" placeholder="NOME" />
+            <input type="text" id="hora-editar" placeholder="00:00" />
+            <select id="slot-editar">
+                <option value="">Slot</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <select id="dia-editar">
+                <option value="">Dia</option>
+                <option value="segunda">segunda</option>
+                <option value="terca">terca</option>
+                <option value="quarta">quarta</option>
+                <option value="quinta">quinta</option>
+                <option value="sexta">sexta</option>
+                <option value="sabado">sabado</option>
+                <option value="domingo">domingo</option>
+            </select>
+            <button id="botoes" onclick="editar()">Editar</button>
+        </div>
+    </div>
+    <div class="voltar">
+            <button onclick="voltarVerHorarios()">VOLTAR</button>
+    </div>
+    <script src="/script.js"></script>
+  </body>
+  <style>
+      body,
+    .container {
+        width: 100vw;
+        height: 100vh;
+        max-width: 1024px;
+        max-height: 768px;
+        margin: 0;
+        padding: 0;
+        overflow-y: visible;
+        overflow-x: hidden;
+        scrollbar-width: thin; /* Barra fina */
+        scrollbar-color: #A43CC0 #f9e4ff; /* Alça cinza escuro sobre trilho cinza claro */
+    }
+
+
+    .lilita-one-regular {
+      font-family: "Lilita One", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    body {
+      position: relative;
+      background-color: #f9e4ff;
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      cursor: none;
+      max-width: 1024px;
+      max-height: 768px;
+    }
+    .remediosCadastrados {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+    button {
+      width: 75px;
+      height: 89px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      background-color: #ffffff;
+      border-color: #cba1d7;
+      border-style: solid;
+      border-width: 4px;
+      border-radius: 10px;
+      font-family: "Lilita One", sans-serif;
+    }
+    img {
+      width: 60px;
+      height: 60px;
+    }
+    p {
+      font-family: "Lilita One", sans-serif;
+      font-size: 25px;
+      color: #da56ff;
+    }
+    .remedioCadastrado {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      flex-direction: row;
+      gap: 20px;
+
+    }
+
+    #remedioInfo {
+      background-color: #ffffff;
+      height: 80px;
+      width: 700px;
+      border-color: #cba1d7;
+      border-style: solid;
+      border-radius: 10px;
+      border-width: 4px;
+    }
+     body::-webkit-scrollbar {
+        width: 10px; /* Define a largura da barra */
+        background-color: #f9e4ff; /* Fundo do trilho */
+    }
+
+        /* Personaliza a alça (o botão) da barra de rolagem */
+      body::-webkit-scrollbar-thumb {
+        background-color: #A43CC0; /* Cor da alça */
+        border-radius: 5px; /* Bordas arredondadas */
+    }
+       .voltar {
+        margin-top: 30px;
+        left: 10px;
+        position: absolute;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        bottom: 20px;
+    }
+
+    .voltar button {
+        border-radius: 31px;
+        width: 130px;
+        height: 40px;
+        font-size: 27px;
+        -webkit-text-stroke-width: 2px;
+        /* Define a largura do contorno */
+        -webkit-text-stroke-color: #a43cc0;
+        /* Define a cor do contorno */
+        color: white;
+        background-color: #da56ff;
+        box-shadow: 0px 8px 4px #a43cc0;
+        font-family: "Lilita One", sans-serif;
+        border: none;
+    }
+     .inputs {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin-top: 10px;
+    }
+
+    .inputs input {
+        height: 70px;
+        width: 250px;
+        border-radius: 50px;
+        border-style: solid;
+        border-width: 2px;
+        background-color: #ffffff;
+        border-color: #7f32b3;
+        text-align: center;
+        font-family: "Lilita One";
+        font-size: 50px;
+        -webkit-text-stroke-width: 2px;
+        /* Define a largura do contorno */
+        -webkit-text-stroke-color: #a43cc0;
+        /* Define a cor do contorno */
+        color: #ffffff;
+    }
+
+    ::placeholder {
+        color: #ffffff;
+    }
+
+    #slot,
+    .inputs select {
+        height: 70px;
+        width: 250px;
+        border-radius: 50px;
+        border-style: solid;
+        border-width: 2px;
+        background-color: #ffffff;
+        border-color: #7f32b3;
+        text-align: center;
+        font-family: "Lilita One";
+        font-size: 50px;
+        -webkit-text-stroke-width: 2px;
+        /* Define a largura do contorno */
+        -webkit-text-stroke-color: #a43cc0;
+        /* Define a cor do contorno */
+        color: #ffffff;
+        box-shadow: 0px 10px 5px #7f32b3;
+        appearance: none;
+        /* Remove o estilo padrão */
+        -webkit-appearance: none;
+        /* Safari/Chrome */
+        -moz-appearance: none;
+        /* Firefox */
+        background-color: #ffffff;
+        /* mantém o fundo */
+        color: #ffffff;
+        /* cor da fonte */
+        position: relative;
+        background: #ffffff url("data:image/svg+xml;utf8,<svg fill='purple' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 20px center;
+        background-size: 20px;
+        padding-right: 40px;
+        /* espaço pro ícone não sobrepor o texto */
+    }
+
+    #slot option,
+    .inputs select option {
+        background-color: #ffffff;
+        /* fundo do menu suspenso */
+        color: #7f32b3;
+        /* cor da letra no menu suspenso */
+        font-size: 30px;
+    }
+  </style>
 </html>

@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 db.run(`CREATE TABLE IF NOT EXISTS remedios (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   nome TEXT NOT NULL,
-  dia INTEGER NOT NULL,
+  dia TEXT NOT NULL,
   hora INTEGER NOT NULL,
   minuto INTEGER NOT NULL,
   slot INTEGER NOT NULL
@@ -74,7 +74,7 @@ app.listen(porta, () => {
 app.post("/addRemedio", (req, res) => {
   const { nome, dia, hora, minuto,slot } = req.body;
 
-  if (!nome || !dia || !hora || !minuto || !slot) {
+  if (!nome || !dia || isNaN(hora) || isNaN(minuto) || !slot) {
     return res.status(400).send("Preencha todos os campos");
   }
 
@@ -86,7 +86,58 @@ app.post("/addRemedio", (req, res) => {
         console.error(err.message);
         res.status(500).send("Erro ao cadastrar remédio");
       } else {
-        res.send(`Remédio ${nome} cadastrado com ID ${this.lastID}`);
+        res.send(`Remédio Cadastrado: Id:${this.lastID}| Nome:${nome}| Dia:${dia}| Hora:${hora}:${minuto} | slot: ${slot}`);
+      }
+    }
+  );
+});
+
+
+app.get("/remediosCadastrados", (req, res) => {
+  db.all("SELECT * FROM remedios", [], (err, rows) => {
+    if (err) {
+      res.status(500).send("Erro ao buscar remédios");
+    } else {
+      res.json(rows);
+    }
+  });
+});
+app.get("/remedioCadastrado", (req, res) => {
+  const { id } = req.query; // pega da query string ?id=123
+  db.get("SELECT * FROM remedios WHERE id = ?", [id], (err, row) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Erro no banco" });
+    }
+    res.json(row || {});
+  });
+});
+
+
+app.post ("/removerRemedio", (req,res) => {
+  const { remedio } = req.body;
+  db.run("delete from remedios where id = (?)", [remedio], function(err) {
+    if (err){
+      console.log(err.message);
+      res.status(500).send("Erro ao remover o remédio !!");
+  }else {
+      res.send("Remédio removido !");
+  }})
+})
+
+app.post("/editarRemedio", (req, res) => {
+  const { id, nome, dia, hora, minuto, slot } = req.body;
+  if (!id || !nome || !dia || isNaN(hora) || isNaN(minuto) || !slot) {
+    return res.status(400).send("Preencha todos os campos");
+  }
+  db.run(
+    "UPDATE remedios SET nome = ?, dia = ?, hora = ?, minuto = ?, slot = ? WHERE id = ?",
+    [nome, dia, hora, minuto, slot, id],
+    function (err) {
+      if (err) {
+        res.status(500).send("Erro ao editar remédio");
+      } else {
+        res.send("Remédio editado com sucesso!");
       }
     }
   );
