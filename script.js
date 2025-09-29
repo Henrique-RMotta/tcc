@@ -1,10 +1,13 @@
 let contadorEditar = 0;
-let novasenha = [];
 let diaescolhido = "";
 let contadorFunçãoVoltar = 0;
 let id_remedio = null;
+let novasenha = [];
+const senhacorreta = [];
+let senhadigitada = [];
 verCadastro();
-setInterval(() => {
+if (document.body.id === "paginaInicial") {
+   setInterval(() => {
   const agora = new Date();
   let horaStr = agora.getHours().toString().padStart(2, "0");
   let minStr = agora.getMinutes().toString().padStart(2, "0");
@@ -58,6 +61,8 @@ setInterval(() => {
   p.innerHTML = `${agora.getDate()} de ${nomeMes} de ${agora.getFullYear()}`;
 }, 10000);
 
+}
+
 /*async function ligaled () {
     const res = await fetch(`/ledligar`, {method: 'POST'});
     let data = await res.text();
@@ -84,9 +89,6 @@ async function verSenha() {
   senhacorreta.push(data.senha);
 }
 verSenha();
-const senhacorreta = [];
-let senhadigitada = [];
-
 document.getElementById("menu").classList.add("hidden");
 function add(num) {
   senhadigitada.push(num);
@@ -268,6 +270,25 @@ function voltarConfigurar() {
 }
 
 function voltarVerHorarios(){
+  // Se estamos editando (inputs visíveis)
+  const inputsVisiveis = [...document.querySelectorAll(".inputs")]
+    .some((el) => !el.classList.contains("hidden"));
+
+  if (inputsVisiveis) {
+    // Fecha edição e volta para lista
+    document.querySelectorAll(".inputs").forEach((el) => el.classList.add("hidden"));
+    document.querySelectorAll(".remediosCadastrados").forEach((el) => el.classList.remove("hidden"));
+    contadorFunçãoVoltar = 0; // 🔴 resetar contador aqui
+    return; // não sai da página ainda
+  }
+
+  // Se já estamos na lista
+  contadorFunçãoVoltar++;
+  if (contadorFunçãoVoltar >= 1) { // 🔴 basta 1 clique
+    window.history.back();
+    contadorFunçãoVoltar = 0;
+}
+
 
 }
 
@@ -379,14 +400,12 @@ document.querySelectorAll(".key").forEach((key) => {
     }
   });
 });
-
 async function verCadastro (){
+  contadorFunçãoVoltar = 0;
   const res = await fetch("/remediosCadastrados");
   const remedios = await res.json();
-
   const container = document.querySelector(".remediosCadastrados");
   container.innerHTML = ""; // Limpa antes de adicionar
-
   remedios.forEach(remedio => {
     const div = document.createElement("div");
     div.className = "remedioCadastrado";
@@ -399,7 +418,7 @@ async function verCadastro (){
       <button onclick="abrirEditar(${remedio.id})">
         <img src="https://cdn.discordapp.com/attachments/1132706730900459601/1421598752770097265/image.png?ex=68d99e82&is=68d84d02&hm=ee4fe9d639fe593e1ed4d38773b570d30f13ec7c98db2826633ff7efc07d409b&" alt="Editar" />
       </button>
-      <button onclick="remover(${remedio.id})">
+      <button onclick="removerRemedio(${remedio.id})">
         <img src="https://cdn.discordapp.com/attachments/1132706730900459601/1421598915576336516/image.png?ex=68d99ea9&is=68d84d29&hm=cd1f761c25146711a1c45a211d96af65adf2e8ed83c4fd0402f6b1e231e7b7af&" alt="Remover" />
       </button>
     `;
@@ -411,12 +430,9 @@ async function verCadastro (){
     .forEach((btn) => btn.classList.add("hidden")); 
 }
 
-// Chame a função ao carregar a página verhorarios.html
-if (window.location.pathname.includes("verhorarios.html")) {
-  verCadastro();
-}
 
-async function remover(remedio) {
+
+async function removerRemedio(remedio) {
     const res = await fetch ( "/removerRemedio", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -427,7 +443,8 @@ async function remover(remedio) {
 
 
 async function abrirEditar(remedioid) {
-  console.log(contadorEditar)
+  contadorFunçãoVoltar=  0; 
+  console.log(contadorFunçãoVoltar)
   document
     .querySelectorAll(".inputs")
     .forEach((btn) => btn.classList.remove("hidden")); 
