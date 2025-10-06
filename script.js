@@ -6,7 +6,6 @@ let novasenha = [];
 const senhacorreta = [];
 let senhadigitada = [];
 verCadastro();
-if (document.body.id === "paginaInicial") {
    setInterval(() => {
   const agora = new Date();
   let horaStr = agora.getHours().toString().padStart(2, "0");
@@ -59,8 +58,49 @@ if (document.body.id === "paginaInicial") {
       nomeMes = "Mês inválido";
   }
   p.innerHTML = `${agora.getDate()} de ${nomeMes} de ${agora.getFullYear()}`;
+  buscarRemedio();
+  
 }, 10000);
 
+async function buscarRemedio() {
+  const agora = new Date();
+  const diaNum = agora.getDay();
+  let diaSem = "";
+  switch (diaNum) {
+    case 1:
+      diaSem = "segunda";
+      break;
+    case 2:
+      diaSem = "terca"
+      break;
+    case 3: 
+      diaSem = "quarta";
+      break; 
+    case 4: 
+      diaSem = "quinta";
+      break;
+    case 5: 
+      diaSem = "sexta";
+      break;
+    case 6: 
+      diaSem = "sabado"
+      break
+    case 0: 
+      diaSem = "domingo"
+      break;
+
+}
+  const hora = agora.getHours();
+  const minuto = agora.getMinutes();
+  const res = await fetch (`/buscarRemedio?dia=${diaSem}&hora=${hora}&minuto=${minuto}`,{
+    method: "GET",
+    headers: {"Content-Type":"application/json"},
+  });
+  let data = await res.json();
+
+  if (res.status === 200) {
+    $('#alertaRemedio').modal('show');
+  }
 }
 
 /*async function ligaled () {
@@ -154,7 +194,7 @@ function alterarSenhaMenu() {
     msg.innerHTML = "cadastrada";
     setTimeout(() => {
       window.location.href = "página_inicial.html";
-    }, 5000);
+    }, 2000);
     document
       .querySelectorAll("#senha button")
       .forEach((btn) => btn.classList.remove("pressionado"));
@@ -224,49 +264,38 @@ function addDia(dia) {
 }
 
 function  voltarProgramar() {
-  // Esconde todos os inputs
-  document.querySelectorAll(".inputs").forEach((el) => el.classList.add("hidden"));
-  // Mostra os botões de dias
-  document.querySelectorAll("#botoes").forEach((el) => el.classList.remove("hidden"));
-  // Esconde a mensagem
-  document.getElementById("msg").classList.add("hidden");
+   const inputsVisiveis = [...document.querySelectorAll(".inputs")]
+    .some((el) => !el.classList.contains("hidden"));
+   if (inputsVisiveis) {
+    document.querySelectorAll(".inputs").forEach((el) => el.classList.add("hidden"))
+    document.querySelectorAll("#botoes").forEach((el) => el.classList.remove("hidden"))
+    contadorFunçãoVoltar = 0; // 🔴 resetar contador aqui
+    return; // não sai da página ainda
+   }
 
-  contadorFunçãoVoltar++;
-
-  // Se o usuário clicar duas vezes em voltar, volta para a página anterior
-  if (contadorFunçãoVoltar === 2) {
-    // Verifica se todos os inputs estão hidden
-    const inputs = document.getElementsByClassName("inputs");
-    let todosHidden = true;
-    for (let i = 0; i < inputs.length; i++) {
-      if (!inputs[i].classList.contains("hidden")) {
-        todosHidden = false;
-        break;
-      }
-    }
-    if (todosHidden) {
-      window.history.back();
-    }
+   contadorFunçãoVoltar ++; 
+   if(contadorFunçãoVoltar >= 1) {
+    window.history.back();
     contadorFunçãoVoltar = 0;
-  }
+   }
 }
 
 function voltarConfigurar() {
-   document
-    .querySelectorAll("#botoes")
-    .forEach((btn) => btn.classList.remove("hidden")); 
-  document
-    .querySelectorAll("#senha")
-    .forEach((btn) => btn.classList.add("hidden")); 
-  document.getElementById("titulo-senha").classList.add("hidden");
-  contadorFunçãoVoltar ++;
-  const botoesSenha = document.getElementById("senha"); 
-  if (botoesSenha.classList.contains("hidden")){
-    if (contadorFunçãoVoltar == 2) {
-      window.history.back();
-      contadorFunçãoVoltar = 0;
+    const senha = [...document.querySelectorAll("#senha")]
+    .some((el) => !el.classList.contains("hidden"));
+
+    if(senha) {
+    document.querySelectorAll("#senha").forEach((el) => el.classList.add("hidden"))
+    document.getElementById("titulo-senha").classList.add("hidden");
+    document.querySelectorAll("#botoes").forEach((el) => el.classList.remove("hidden"))
+    contadorFunçãoVoltar = 0; // 🔴 resetar contador aqui
+    return; // não sai da página ainda
     }
-  }
+    contadorFunçãoVoltar ++; 
+    if(contadorFunçãoVoltar >= 1) {
+    window.history.back();
+    contadorFunçãoVoltar = 0;
+   }
 }
 
 function voltarVerHorarios(){
@@ -366,40 +395,7 @@ async function programar2() {
   }
 }
 
-let inputAtivo = null;
-// Mostrar teclado quando o input for selecionado
-function setInput(id) {
-  inputAtivo = document.getElementById(id);
-  document.getElementById("teclado").classList.remove("hidden");
-}
 
-// Esconder teclado quando clicar fora do input
-document.addEventListener("click", (e) => {
-  if (!e.target.closest("#teclado") && !e.target.closest("#inputs")) {
-    document.getElementById("teclado").classList.add("hidden");
-    inputAtivo = null;
-  }
-});
-
-// Eventos dos inputs
-document
-  .getElementById("nome")
-  .addEventListener("focus", () => setInput("nome"));
-document
-  .getElementById("hora")
-  .addEventListener("focus", () => setInput("hora"));
-
-// Teclado virtual
-document.querySelectorAll(".key").forEach((key) => {
-  key.addEventListener("click", () => {
-    if (!inputAtivo) return;
-    if (key.classList.contains("space")) {
-      inputAtivo.value += " ";
-    } else {
-      inputAtivo.value += key.textContent;
-    }
-  });
-});
 async function verCadastro (){
   contadorFunçãoVoltar = 0;
   const res = await fetch("/remediosCadastrados");

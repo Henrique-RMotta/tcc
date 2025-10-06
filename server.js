@@ -112,7 +112,19 @@ app.get("/remedioCadastrado", (req, res) => {
     res.json(row || {});
   });
 });
-
+app.get("/buscarRemedio", (req,res) => {
+  const {dia,hora,minuto} = req.query;
+  db.get("SELECT * FROM remedios where dia=? and hora=? and minuto=?",[dia,hora,minuto],(err,row) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({error: "Erro no banco "});
+    } else if (row.length === 0 ){ // [] = [] = false -> javascript nao compara conteudo, e sm referencias 
+      console.log("Remedio não encontrado")
+      return res.status(404).json({error: "Remedio não encontrado"})
+    }
+     res.status(200).json(row || {}); 
+  })
+})
 
 app.post ("/removerRemedio", (req,res) => {
   const { remedio } = req.body;
@@ -142,3 +154,4 @@ app.post("/editarRemedio", (req, res) => {
     }
   );
 });
+

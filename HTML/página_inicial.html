@@ -7,10 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+   <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
 </head>
 <body id="paginaInicial">
     <div class="container">
-        <button onclick="menu()">MENU</button>
         <p id="datahoje"></p>
         <div class="horario">
             <div  id="hora1">1</div>
@@ -19,7 +24,55 @@
             <div id="min1">1</div>
             <div id="min2">1</div>
         </div>
+        <button id="menu" onclick="menu()">MENU</button>
+        <!-- Modal -->
+      <div
+        class="modal fade"
+        id="alertaRemedio"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="TituloModalCentralizado"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="TituloModalCentralizado">
+                Título do modal
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Fechar"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Fechar
+              </button>
+              <button type="button" class="btn btn-primary">
+                Salvar mudanças
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+     <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
      <script src="script.js"></script>
      <style>
             .lilita-one-regular {
@@ -42,7 +95,7 @@
                 cursor: none ;
                 
             }
-            button{
+            #menu {
                 position: absolute;
                 height: 75px;
                 width: 200px;
@@ -64,8 +117,8 @@
                 font-family: "Lilita One";
                 padding: 10px;
                 border-color: #A43CC0;
-                
             }
+
             p {
                 display: flex;
                 align-items: center;

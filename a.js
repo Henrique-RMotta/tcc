@@ -1,5 +1,5 @@
 const agora = new Date;
-console.log(agora.getDay());
+console.log(agora.getDate());
 
 let a = [1,2,3,4]
 a.join("");

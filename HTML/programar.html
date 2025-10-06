@@ -1,349 +1,314 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Programar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet" />
-</head>
-
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+  </head>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+  <body>
     <div class="container">
-        <div id="botoes">
-            <button onclick="addDia('segunda')">SEGUNDA</button>
-            <button onclick="addDia('terca')">TERÇA</button>
-            <button onclick="addDia('quarta')">QUARTA</button>
-            <button onclick="addDia('quinta')">QUINTA</button>
-            <button onclick="addDia('sexta')">SEXTA</button>
-            <button onclick="addDia('sabado')">SÁBADO</button>
-            <button onclick="addDia('domingo')">DOMINGO</button>
-        </div>
-        <div class="inputs hidden">
-            <input type="text" id="nome1" oninput="programar2()" placeholder="NOME" />
-            <input type="text" id="hora1" oninput="programar2()" placeholder="00:00" />
-            <select onclick="programar2()" id="slot1">
-                <option value="">slot</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-        <div class="inputs hidden">
-            <input type="text" id="nome2" oninput="programar2()" placeholder="NOME" />
-            <input type="text" id="hora2" oninput="programar2()" placeholder="00:00" />
-            <select onclick="programar2()" id="slot2">
-                <option value="">slot</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-        <div class="inputs hidden">
-            <input type="text" id="nome3" oninput="programar2()" placeholder="NOME" />
-            <input type="text" id="hora3" oninput="programar2()" placeholder="00:00" />
-            <select onclick="programar2()" id="slot3">
-                <option value="">slot</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-        <div class="inputs hidden">
-            <input type="text" id="nome4" oninput="programar2()" placeholder="NOME" />
-            <input type="text" id="hora4" oninput="programar2()" placeholder="00:00" />
-            <select onclick="programar2()" id="slot4">
-                <option value="">slot</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-        <div class="voltar">
-            <button onclick="voltarProgramar()">VOLTAR</button>
-        </div>
-        <div class="keyboard" id="teclado">
-            <div class="row">
-                <button class="key">Q</button>
-                <button class="key">W</button>
-                <button class="key">E</button>
-                <button class="key">R</button>
-                <button class="key">T</button>
-                <button class="key">Y</button>
-                <button class="key">U</button>
-                <button class="key">I</button>
-                <button class="key">O</button>
-                <button class="key">P</button>
-            </div>
-            <div class="row">
-                <div class="key">A</div>
-                <div class="key">S</div>
-                <div class="key">D</div>
-                <div class="key">F</div>
-                <div class="key">G</div>
-                <div class="key">H</div>
-                <div class="key">J</div>
-                <div class="key">K</div>
-                <div class="key">L</div>
-            </div>
-            <div class="row">
-                <div class="key">Z</div>
-                <div class="key">X</div>
-                <div class="key">C</div>
-                <div class="key">V</div>
-                <div class="key">B</div>
-                <div class="key">N</div>
-                <div class="key">M</div>
-            </div>
-            <div class="row">
-                <div class="key space"></div>
-            </div>
-        </div>
-        <p id="msg"></p>
+      <div id="botoes">
+        <button onclick="addDia('segunda')">SEGUNDA</button>
+        <button onclick="addDia('terca')">TERÇA</button>
+        <button onclick="addDia('quarta')">QUARTA</button>
+        <button onclick="addDia('quinta')">QUINTA</button>
+        <button onclick="addDia('sexta')">SEXTA</button>
+        <button onclick="addDia('sabado')">SÁBADO</button>
+        <button onclick="addDia('domingo')">DOMINGO</button>
+      </div>
+      <div class="inputs hidden">
+        <input
+          type="text"
+          id="nome1"
+          oninput="programar2()"
+          placeholder="NOME"
+        />
+        <input
+          type="text"
+          id="hora1"
+          oninput="programar2()"
+          placeholder="00:00"
+        />
+        <select onclick="programar2()" id="slot1">
+          <option value="">slot</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="inputs hidden">
+        <input
+          type="text"
+          id="nome2"
+          oninput="programar2()"
+          placeholder="NOME"
+        />
+        <input
+          type="text"
+          id="hora2"
+          oninput="programar2()"
+          placeholder="00:00"
+        />
+        <select onclick="programar2()" id="slot2">
+          <option value="">slot</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="inputs hidden">
+        <input
+          type="text"
+          id="nome3"
+          oninput="programar2()"
+          placeholder="NOME"
+        />
+        <input
+          type="text"
+          id="hora3"
+          oninput="programar2()"
+          placeholder="00:00"
+        />
+        <select onclick="programar2()" id="slot3">
+          <option value="">slot</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="inputs hidden">
+        <input
+          type="text"
+          id="nome4"
+          oninput="programar2()"
+          placeholder="NOME"
+        />
+        <input
+          type="text"
+          id="hora4"
+          oninput="programar2()"
+          placeholder="00:00"
+        />
+        <select onclick="programar2()" id="slot4">
+          <option value="">slot</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="voltar">
+        <button onclick="voltarProgramar()">VOLTAR</button>
+      </div>
+      <p id="msg"></p>
     </div>
-</body>
-<style>
+  </body>
+  <style>
     body,
     .container {
-        width: 100vw;
-        height: 100vh;
-        max-width: 1024px;
-        max-height: 768px;
-        margin: 10px;
-        padding: 10px;
-        overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      max-width: 1024px;
+      max-height: 768px;
+      margin: 10px;
+      padding: 10px;
+      overflow: hidden;
     }
 
     .lilita-one-regular {
-        font-family: "Lilita One", sans-serif;
-        font-weight: 400;
-        font-style: normal;
+      font-family: "Lilita One", sans-serif;
+      font-weight: 400;
+      font-style: normal;
     }
 
     .hidden {
-        display: none !important;
+      display: none !important;
     }
 
     body {
-        position: relative;
-        background-color: #f9e4ff;
-        min-height: 100vh;
-        height: 100vh;
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        cursor: none;
-        max-width: 1024px;
-        max-height: 768px;
-        overflow: hidden;
+      position: relative;
+      background-color: #f9e4ff;
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      cursor: none;
+      max-width: 1024px;
+      max-height: 768px;
+      overflow: hidden;
     }
 
     #botoes {
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(4, 1fr);
-        height: auto;
-        width: auto;
-        gap: 30px;
-        text-align: center;
-        justify-items: center;
-        align-items: center;
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      height: auto;
+      width: auto;
+      gap: 30px;
+      text-align: center;
+      justify-items: center;
+      align-items: center;
     }
 
     #botoes button {
-        background-color: #f4f197;
-        height: 70px;
-        width: 300px;
-        font-family: "Lilita One", sans-serif;
-        font-size: 35px;
-        color: #da56ff;
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        border-width: 0px;
-        border-radius: 5px;
-        box-shadow: 0px 10px 4px #bfbd75;
-        border-style: solid;
+      background-color: #f4f197;
+      height: 70px;
+      width: 300px;
+      font-family: "Lilita One", sans-serif;
+      font-size: 35px;
+      color: #da56ff;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      border-width: 0px;
+      border-radius: 5px;
+      box-shadow: 0px 10px 4px #bfbd75;
+      border-style: solid;
     }
 
     #botoes button:last-child {
-        grid-column: 1 / -1;
-        /* pega a linha inteira */
-        justify-self: center;
+      grid-column: 1 / -1;
+      /* pega a linha inteira */
+      justify-self: center;
     }
 
     .voltar {
-        margin-top: 30px;
-        left: 10px;
-        position: absolute;
-        margin-left: 20px;
-        margin-bottom: 20px;
-        bottom: 20px;
+      margin-top: 30px;
+      left: 10px;
+      position: absolute;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      bottom: 20px;
     }
 
     .voltar button {
-        border-radius: 31px;
-        width: 130px;
-        height: 40px;
-        font-size: 27px;
-        -webkit-text-stroke-width: 2px;
-        /* Define a largura do contorno */
-        -webkit-text-stroke-color: #a43cc0;
-        /* Define a cor do contorno */
-        color: white;
-        background-color: #da56ff;
-        box-shadow: 0px 8px 4px #a43cc0;
-        font-family: "Lilita One", sans-serif;
-        border: none;
+      border-radius: 31px;
+      width: 130px;
+      height: 40px;
+      font-size: 27px;
+      -webkit-text-stroke-width: 2px;
+      /* Define a largura do contorno */
+      -webkit-text-stroke-color: #a43cc0;
+      /* Define a cor do contorno */
+      color: white;
+      background-color: #da56ff;
+      box-shadow: 0px 8px 4px #a43cc0;
+      font-family: "Lilita One", sans-serif;
+      border: none;
     }
 
     .inputs {
-        display: flex;
-        flex-direction: row;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-top: 10px;
     }
 
     .inputs input {
-        height: 70px;
-        width: 250px;
-        border-radius: 50px;
-        border-style: solid;
-        border-width: 2px;
-        background-color: #ffffff;
-        border-color: #7f32b3;
-        text-align: center;
-        font-family: "Lilita One";
-        font-size: 50px;
-        -webkit-text-stroke-width: 2px;
-        /* Define a largura do contorno */
-        -webkit-text-stroke-color: #a43cc0;
-        /* Define a cor do contorno */
-        color: #ffffff;
+      height: 70px;
+      width: 250px;
+      border-radius: 50px;
+      border-style: solid;
+      border-width: 2px;
+      background-color: #ffffff;
+      border-color: #7f32b3;
+      text-align: center;
+      font-family: "Lilita One";
+      font-size: 50px;
+      -webkit-text-stroke-width: 2px;
+      /* Define a largura do contorno */
+      -webkit-text-stroke-color: #a43cc0;
+      /* Define a cor do contorno */
+      color: #ffffff;
     }
 
     ::placeholder {
-        color: #ffffff;
+      color: #ffffff;
     }
 
     #slot,
     .inputs select {
-        height: 70px;
-        width: 250px;
-        border-radius: 50px;
-        border-style: solid;
-        border-width: 2px;
-        background-color: #ffffff;
-        border-color: #7f32b3;
-        text-align: center;
-        font-family: "Lilita One";
-        font-size: 50px;
-        -webkit-text-stroke-width: 2px;
-        /* Define a largura do contorno */
-        -webkit-text-stroke-color: #a43cc0;
-        /* Define a cor do contorno */
-        color: #ffffff;
-        box-shadow: 0px 10px 5px #7f32b3;
-        appearance: none;
-        /* Remove o estilo padrão */
-        -webkit-appearance: none;
-        /* Safari/Chrome */
-        -moz-appearance: none;
-        /* Firefox */
-        background-color: #ffffff;
-        /* mantém o fundo */
-        color: #ffffff;
-        /* cor da fonte */
-        position: relative;
-        background: #ffffff url("data:image/svg+xml;utf8,<svg fill='purple' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 20px center;
-        background-size: 20px;
-        padding-right: 40px;
-        /* espaço pro ícone não sobrepor o texto */
+      height: 70px;
+      width: 250px;
+      border-radius: 50px;
+      border-style: solid;
+      border-width: 2px;
+      background-color: #ffffff;
+      border-color: #7f32b3;
+      text-align: center;
+      font-family: "Lilita One";
+      font-size: 50px;
+      -webkit-text-stroke-width: 2px;
+      /* Define a largura do contorno */
+      -webkit-text-stroke-color: #a43cc0;
+      /* Define a cor do contorno */
+      color: #ffffff;
+      box-shadow: 0px 10px 5px #7f32b3;
+      appearance: none;
+      /* Remove o estilo padrão */
+      -webkit-appearance: none;
+      /* Safari/Chrome */
+      -moz-appearance: none;
+      /* Firefox */
+      background-color: #ffffff;
+      /* mantém o fundo */
+      color: #ffffff;
+      /* cor da fonte */
+      position: relative;
+      background: #ffffff
+        url("data:image/svg+xml;utf8,<svg fill='purple' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")
+        no-repeat right 20px center;
+      background-size: 20px;
+      padding-right: 40px;
+      /* espaço pro ícone não sobrepor o texto */
     }
 
     #slot option,
     .inputs select option {
-        background-color: #ffffff;
-        /* fundo do menu suspenso */
-        color: #7f32b3;
-        /* cor da letra no menu suspenso */
-        font-size: 30px;
-    }
-
-    .keyboard {
-        position: fixed;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        width: 100%;
-        max-width: 1024px;
-        height: auto;
-        padding: 15px 0;
-        background: #da56ff;
-        border-radius: 20px 20px 0 0;
-        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
-        z-index: 10;
-    }
-
-    .row {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin: 5px 0;
-    }
-
-    .key {
-        width: 70px;
-        height: 70px;
-        background: #fff;
-        color: #da56ff;
-        font-size: 30px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        user-select: none;
-        font-weight: bold;
-        transition: 0.1s;
-    }
-
-    .key:active {
-        transform: scale(0.9);
-        background: #f1c6ff;
-    }
-
-    .key.space {
-        width: 300px;
+      background-color: #ffffff;
+      /* fundo do menu suspenso */
+      color: #7f32b3;
+      /* cor da letra no menu suspenso */
+      font-size: 30px;
     }
     p {
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 15px;
-        font-family: 'Lilita One';
-      }
-</style>
-<script src="/script.js"></script>
-
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 15px;
+      font-family: "Lilita One";
+    }
+  </style>
+  <script src="/script.js"></script>
 </html>
