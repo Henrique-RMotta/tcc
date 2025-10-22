@@ -5,6 +5,7 @@ const app = express();
 const porta = 3000;
 const bodyParser = require('body-parser');
 const led1 = new Gpio(4,{mode:Gpio.OUTPUT});
+const buzzer = new Gpio(26, {mode:Gpio.OUTPUT});
 const db = new sqlite3.Database('/home/mottaaryana/tcc/dispenser.db');
 app.use(bodyParser.json())
 // Banco de Dados  
@@ -22,11 +23,35 @@ db.run(`CREATE TABLE IF NOT EXISTS senha (
   senha INTEGER NOT NULL
   ) `);
 
+app.listen(porta, () => {
+    console.log("Servidor Iniciado em: http://192.168.0.97:3000/")
+})
+
 db.get("SELECT COUNT(*) as contador FROM senha", [], (err,row) => {
   if (row.contador === 0) {
     db.run("INSERT INTO senha (senha) VALUES(?)", ["1234"]);
   }
 });
+let buzzerInterval = null;
+app.post('/buzzer' , (req,res) => {
+    if (buzzerInterval) {
+    return res.status(200).send("Buzzer já está tocando");
+  }
+   buzzerInterval = setInterval(() => {
+    buzzer.digitalWrite(1);
+    setTimeout(() => buzzer.digitalWrite(0), 300); // apita por 0.3s
+  }, 1000); // repete a cada 1s
+  res.status(200).send("Buzzer Ligado");
+}) 
+
+app.post (`/buzzerDesligar`, (req,res) => {
+  if (buzzerInterval) {
+    clearInterval(buzzerInterval); // para o loop
+    buzzerInterval = null;
+  }
+  buzzer.digitalWrite(0);
+  res.status(200).send("Buzzer Desligado");
+} )
 
 app.post('/alterarSenha', (req,res) => {
   const { senhanova } = req.body;
@@ -51,39 +76,110 @@ app.get('/', (req, res) => {
 });
 
 app.post('/motorLigar', (req, res) => {
-  const { posicao } = req.body;
-  // Inicia rotação suave para um lado
-  led1.servoWrite(1300); // velocidade leve e segura
+ /* const { posicao } = req.body; -- ESTE É O CODIGO COMO DEVERIA SER
+
+  // Velocidade leve para abertura
+  led1.servoWrite(1300); // sentido horário
+
   switch (posicao) {
     case "1":
-      // Tempo calculado para ~45° com leve carga
-     setTimeout(() => {
-        led1.servoWrite(1500); // parar o servo
-      }, 225); 
+      setTimeout(() => {
+        led1.servoWrite(1500); // para
+        setTimeout(() => {
+          led1.servoWrite(1700); // volta (anti-horário)
+          setTimeout(() => led1.servoWrite(1500), 266); // para
+        }, 1000);
+      }, 266);
       break;
-    
+
+    case "2":
+      setTimeout(() => {
+        led1.servoWrite(1500);
+        setTimeout(() => {
+          led1.servoWrite(1700);
+          setTimeout(() => led1.servoWrite(1500), 266 * 2);
+        }, 1000);
+      }, 266 * 2);
+      break;
+
+    case "3":
+      setTimeout(() => {
+        led1.servoWrite(1500);
+        setTimeout(() => {
+          led1.servoWrite(1700);
+          setTimeout(() => led1.servoWrite(1500), 266 * 3);
+        }, 1000);
+      }, 266 * 3);
+      break;
+
+    case "4":
+      setTimeout(() => {
+        led1.servoWrite(1500);
+        setTimeout(() => {
+          led1.servoWrite(1700);
+          setTimeout(() => led1.servoWrite(1500), 266 * 4);
+        }, 1000);
+      }, 266 * 4);
+      break;
+
+    case "5":
+      setTimeout(() => {
+        led1.servoWrite(1500);
+        setTimeout(() => {
+          led1.servoWrite(1700);
+          setTimeout(() => led1.servoWrite(1500), 266 * 5);
+        }, 1000);
+      }, 266 * 5);
+      break;
+
+    case "6":
+      setTimeout(() => {
+        led1.servoWrite(1500);
+        setTimeout(() => {
+          led1.servoWrite(1700);
+          setTimeout(() => led1.servoWrite(1500), 266 * 6);
+        }, 1000);
+      }, 266 * 6);
+      break;
+
+    case "7":
+      setTimeout(() => {
+        led1.servoWrite(1500);
+        setTimeout(() => {
+          led1.servoWrite(1700);
+          setTimeout(() => led1.servoWrite(1500), 266 * 7);
+        }, 1000);
+      }, 266 * 7);
+      break;
+
+    default:
+      console.log("Posição inválida recebida:", posicao);
+      res.status(400).send("Posição inválida!");
+      return;
   }
-  
-   
-  res.status(200).send("Servo girou aproximadamente 45°!");
+
+  res.status(200).send(`Servo girou para posição ${posicao} e retornou.`);*/
 });
 
-app.post ('/motorTestar' , (req,res) => {
+
+app.post ('/motorFeira' , (req,res) => {
   led1.servoWrite(1300);
-  setTimeout(() => {
-        led1.servoWrite(1500); // parar o servo
-      }, 224); 
+   setTimeout(() => {
+    led1.servoWrite(1500); // para
+    // pequena pausa antes de retornar
+    setTimeout(() => {
+      // Gira suavemente de volta (45° no outro sentido)
+      led1.servoWrite(1700); // sentido anti-horário
+      setTimeout(() => {
+        led1.servoWrite(1500); // para novamente
+      }, 278*5); // tempo igual pra retornar
+    }, 1000); // pausa de 150ms antes de começar a voltar
+  }, 270*6); // tempo do giro de 45° (ajustável)
+    
+  res.status(200).send("Servo girou tudo e retornou à posição inicial!");
 })
 
-app.post('/motorDesligar', (req, res) => {
-    led1.servoWrite(1500);
-    res.status(200).send("Motor Desligado!")
-})
 
-
-app.listen(porta, () => {
-    console.log("Servidor Iniciado em: http://192.168.0.97:3000/")
-})
 
 app.post("/addRemedio", (req, res) => {
   const { nome, dia, hora, minuto,slot } = req.body;
@@ -100,7 +196,7 @@ app.post("/addRemedio", (req, res) => {
         console.error(err.message);
         res.status(500).send("Erro ao cadastrar remédio");
       } else {
-        res.send(`Remédio Cadastrado: Id:${this.lastID}| Nome:${nome}| Dia:${dia}| Hora:${hora}:${minuto} | slot: ${slot}`);
+        res.send(`Remédio Cadastrado: Id:${this.lastID}| Nome:${nome}| Dia:${dia}| Hora:${hora.toString().padStart(2, "0")}:${minuto.toString().padStart(2, "0")} | slot: ${slot}`);
       }
     }
   );
@@ -116,6 +212,7 @@ app.get("/remediosCadastrados", (req, res) => {
     }
   });
 });
+
 app.get("/remedioCadastrado", (req, res) => {
   const { id } = req.query; // pega da query string ?id=123
   db.get("SELECT * FROM remedios WHERE id = ?", [id], (err, row) => {
@@ -126,6 +223,7 @@ app.get("/remedioCadastrado", (req, res) => {
     res.json(row || {});
   });
 });
+
 app.get("/buscarRemedio", (req, res) => {
   const { dia, hora, minuto } = req.query;
  db.all(
@@ -144,7 +242,7 @@ app.get("/buscarRemedio", (req, res) => {
     let mensagemCompleta = "";
     for (let i = 0; i < rows.length; i++) {
       // Adiciona uma quebra de linha ou separador entre os itens, exceto no último
-      mensagemCompleta += `<p>Id:${rows[i].id} | Nome:${rows[i].nome} | Dia:${rows[i].dia} | Hora:${rows[i].hora}:${rows[i].minuto} | Slot:${rows[i].slot}</p>`;
+      mensagemCompleta += `<p>Id:${rows[i].id} | Nome:${rows[i].nome} | Dia:${rows[i].dia} | Hora:${rows[i].hora.toString().padStart(2, "0")}:${rows[i].minuto.toString().padStart(2, "0")} | Slot:${rows[i].slot}</p>`;
       if (i < rows.length - 1) {
           mensagemCompleta += " e "; 
       }

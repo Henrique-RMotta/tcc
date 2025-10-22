@@ -31,6 +31,8 @@
         <div class="voltar">
             <button onclick="voltarConfigurar()"> VOLTAR</button>
         </div>
+               <!-- Modal -->
+        <div class="modal-overlay" id="modal-overlay"></div> 
         <p id="msg"></p>
     </div>
 </body>
@@ -182,5 +184,48 @@
     .pressionado {
         background-color: #F4F197 !important;
      }
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        }
+    .modal h2 {
+        color: white;
+        font-size: 60px;
+    }
+    .modal p {
+        font-family: "Lilita One";
+        color: #FFFFFF;
+        -webkit-text-stroke-width: 1px; /* Define a largura do contorno */
+        -webkit-text-stroke-color: #A43CC0; /* Define a cor do contorno */
+        font-size: 16px;
+        
+    }
+        .modal {
+        background-color: #A43CC0;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        text-align: center;
+        font-family: "Lilita One" ;
+        border-color: #f4f197 ;
+        border-style: solid;
+        border-width: 5px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .btn-fechar {
+        background: red;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-family: "Lilita One" ;
+    }
 </style>
 </html>
