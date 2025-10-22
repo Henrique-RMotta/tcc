@@ -4,7 +4,7 @@ const Gpio = require('pigpio').Gpio;
 const app = express();
 const porta = 3000;
 const bodyParser = require('body-parser');
-const led1 = new Gpio(17,{mode:Gpio.OUTPUT});
+const led1 = new Gpio(4,{mode:Gpio.OUTPUT});
 const db = new sqlite3.Database('/home/mottaaryana/tcc/dispenser.db');
 app.use(bodyParser.json())
 // Banco de Dados  
@@ -49,21 +49,35 @@ app.use(express.static('HTML'));
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/HTML/página_inicial.html');
 });
-app.post('/ledligar', (req, res) => {
-// girar para um lado com velocidade média (ex.: 1200)
-  led1.servoWrite(1500);
-  led1.servoWrite(1200);
-  setTimeout(() => {
-  // parar após X ms (por exemplo 700 ms para ~uma volta curta, ajuste por teste)
-  led1.servoWrite(1500);
-  }, 510);
-  // Depois de 500ms (meio segundo), manda para 90
-  res.status(200).send("Servo girou 90°!");
+
+app.post('/motorLigar', (req, res) => {
+  const { posicao } = req.body;
+  // Inicia rotação suave para um lado
+  led1.servoWrite(1300); // velocidade leve e segura
+  switch (posicao) {
+    case "1":
+      // Tempo calculado para ~45° com leve carga
+     setTimeout(() => {
+        led1.servoWrite(1500); // parar o servo
+      }, 225); 
+      break;
+    
+  }
+  
+   
+  res.status(200).send("Servo girou aproximadamente 45°!");
 });
 
-app.post('/leddesligar', (req, res) => {
+app.post ('/motorTestar' , (req,res) => {
+  led1.servoWrite(1300);
+  setTimeout(() => {
+        led1.servoWrite(1500); // parar o servo
+      }, 224); 
+})
+
+app.post('/motorDesligar', (req, res) => {
     led1.servoWrite(1500);
-    res.status(200).send("Led Desligado!")
+    res.status(200).send("Motor Desligado!")
 })
 
 
@@ -112,19 +126,63 @@ app.get("/remedioCadastrado", (req, res) => {
     res.json(row || {});
   });
 });
-app.get("/buscarRemedio", (req,res) => {
-  const {dia,hora,minuto} = req.query;
-  db.get("SELECT * FROM remedios where dia=? and hora=? and minuto=?",[dia,hora,minuto],(err,row) => {
+app.get("/buscarRemedio", (req, res) => {
+  const { dia, hora, minuto } = req.query;
+ db.all(
+  "SELECT * FROM remedios WHERE dia = ? AND hora = ? AND minuto = ?",
+  [dia, hora, minuto],
+  (err, rows) => { // <-- troquei para rows (plural)
     if (err) {
-      console.log(err);
-      return res.status(500).json({error: "Erro no banco "});
-    } else if (row.length === 0 ){ // [] = [] = false -> javascript nao compara conteudo, e sm referencias 
-      console.log("Remedio não encontrado")
-      return res.status(404).json({error: "Remedio não encontrado"})
+      console.error(err);
+      return res.status(500).json({ error: "Erro no banco de dados" });
     }
-     res.status(200).json(row || {}); 
-  })
+
+    if (!rows || rows.length === 0) {
+      console.log("Remédio não encontrado");
+      return res.status(404).json({ error: "Remédio não encontrado" });
+    }
+    let mensagemCompleta = "";
+    for (let i = 0; i < rows.length; i++) {
+      // Adiciona uma quebra de linha ou separador entre os itens, exceto no último
+      mensagemCompleta += `<p>Id:${rows[i].id} | Nome:${rows[i].nome} | Dia:${rows[i].dia} | Hora:${rows[i].hora}:${rows[i].minuto} | Slot:${rows[i].slot}</p>`;
+      if (i < rows.length - 1) {
+          mensagemCompleta += " e "; 
+      }
+    }
+    // Mensagem personalizada com os dados vindos do banco
+    return res.status(200).json({
+      message: mensagemCompleta
+    });
+  }
+);
+});
+
+app.get ('buscarSlot', (req,res) => {
+    // CORREÇÃO: Extrair as variáveis da query string (URL)
+    const { dia, hora, minuto } = req.query; 
+
+    // Opcional: Validar se as variáveis foram passadas
+    if (!dia || !hora || !minuto) {
+        return res.status(400).json({ error: "Faltam parâmetros: dia, hora, ou minuto." });
+    }
+
+    db.all ("Select * from remedios where dia = ? and hora = ? and minuto = ?", [dia,hora,minuto], (err,rows) => {
+        if (err) {
+            console.log(err)
+            return res.status(500).json({ error: "Erro no banco de dados" });
+        } 
+        
+        if (!rows || rows.length === 0) {
+            console.log("Remédio não encontrado");
+            return res.status(404).json({ error: "Remédio não encontrado" });
+        } else {
+            const slotsEncontrados = rows.map(row => row.slot);
+            // Retorna o array de slots dentro do objeto { slotsEncontrados: [...] }
+            return res.status(200).json({slotsEncontrados});
+        }
+    })
 })
+
 
 app.post ("/removerRemedio", (req,res) => {
   const { remedio } = req.body;
