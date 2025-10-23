@@ -7,66 +7,65 @@ let novasenha = [];
 const senhacorreta = [];
 let senhadigitada = [];
 let modalAberto = false;
-let ultimoRemedio = null; 
+let ultimoRemedio = null;
 verCadastro();
 
 // Verficador de horário
 setInterval(() => {
-  if (document.body.id === "paginaInicial"){
-  const agora = new Date();
-  let horaStr = agora.getHours().toString().padStart(2, "0");
-  let minStr = agora.getMinutes().toString().padStart(2, "0");
-  document.getElementById("hora1").innerHTML = `<span>${horaStr[0]}</span>`;
-  document.getElementById("hora2").innerHTML = `<span>${horaStr[1]}</span>`;
-  document.getElementById("min1").innerHTML = `<span>${minStr[0]}</span>`;
-  document.getElementById("min2").innerHTML = `<span>${minStr[1]}</span>`;
-  let p = document.getElementById("datahoje");
-  let mes = agora.getMonth() + 1; // getMonth() retorna 0-11, então soma 1
-  let nomeMes = "";
-  switch (mes) {
-    case 1:
-      nomeMes = "Janeiro";
-      break;
-    case 2:
-      nomeMes = "Fevereiro";
-      break;
-    case 3:
-      nomeMes = "Março";
-      break;
-    case 4:
-      nomeMes = "Abril";
-      break;
-    case 5:
-      nomeMes = "Maio";
-      break;
-    case 6:
-      nomeMes = "Junho";
-      break;
-    case 7:
-      nomeMes = "Julho";
-      break;
-    case 8:
-      nomeMes = "Agosto";
-      break;
-    case 9:
-      nomeMes = "Setembro";
-      break;
-    case 10:
-      nomeMes = "Outubro";
-      break;
-    case 11:
-      nomeMes = "Novembro";
-      break;
-    case 12:
-      nomeMes = "Dezembro";
-      break;
-    default:
-      nomeMes = "Mês inválido";
+  if (document.body.id === "paginaInicial") {
+    const agora = new Date();
+    let horaStr = agora.getHours().toString().padStart(2, "0");
+    let minStr = agora.getMinutes().toString().padStart(2, "0");
+    document.getElementById("hora1").innerHTML = `<span>${horaStr[0]}</span>`;
+    document.getElementById("hora2").innerHTML = `<span>${horaStr[1]}</span>`;
+    document.getElementById("min1").innerHTML = `<span>${minStr[0]}</span>`;
+    document.getElementById("min2").innerHTML = `<span>${minStr[1]}</span>`;
+    let p = document.getElementById("datahoje");
+    let mes = agora.getMonth() + 1; // getMonth() retorna 0-11, então soma 1
+    let nomeMes = "";
+    switch (mes) {
+      case 1:
+        nomeMes = "Janeiro";
+        break;
+      case 2:
+        nomeMes = "Fevereiro";
+        break;
+      case 3:
+        nomeMes = "Março";
+        break;
+      case 4:
+        nomeMes = "Abril";
+        break;
+      case 5:
+        nomeMes = "Maio";
+        break;
+      case 6:
+        nomeMes = "Junho";
+        break;
+      case 7:
+        nomeMes = "Julho";
+        break;
+      case 8:
+        nomeMes = "Agosto";
+        break;
+      case 9:
+        nomeMes = "Setembro";
+        break;
+      case 10:
+        nomeMes = "Outubro";
+        break;
+      case 11:
+        nomeMes = "Novembro";
+        break;
+      case 12:
+        nomeMes = "Dezembro";
+        break;
+      default:
+        nomeMes = "Mês inválido";
+    }
+
+    p.innerHTML = `${agora.getDate()} de ${nomeMes} de ${agora.getFullYear()}`;
   }
-  
-     p.innerHTML = `${agora.getDate()} de ${nomeMes} de ${agora.getFullYear()}`;
-  }
- 
 }, 1000);
 setInterval(buscarRemedio, 10000);
 // Função que busca o remédio a cada 10 segundos
@@ -109,7 +108,7 @@ async function buscarRemedio() {
   if (modalAberto) return; // evita abrir mais de uma vez
   let data = await res.json();
   const modal = document.getElementById("modal-overlay");
-  if (res.status === 200 &&  data.message !== ultimoRemedio) {
+  if (res.status === 200 && data.message !== ultimoRemedio) {
     ultimoRemedio = data.message;
     modalAberto = true; // marca como aberto
     modal.style.display = "flex";
@@ -123,22 +122,21 @@ async function buscarRemedio() {
     modal.innerHTML = div;
     document.getElementById("remedio-modal").innerHTML = data.message;
     console.log(data.message);
-    const buzzer = await fetch ('/buzzer', {method: 'POST'});
+    const buzzer = await fetch("/buzzer", { method: "POST" });
     ligamotor();
   }
 }
- async function fecharModal() {
+async function fecharModal() {
   const modal = document.getElementById("modal-overlay");
   modal.style.display = "none";
   modal.innerHTML = "";
   modalAberto = false;
-  await fetch('/buzzerDesligar', { method: 'POST' });
-
+  await fetch("/buzzerDesligar", { method: "POST" });
 }
 async function ligamotor() {
   const test = await fetch("/motorFeira", { method: "POST" });
   const dataTest = await test.text();
- /* 
+  /* 
   O código abaixo obtém o dia da semana atual e envia essa informação como "posição" 
   para o endpoint /motorLigar. 
   Ou seja, a posição agora representa o dia da semana (ex: segunda = 1, terça = 2, etc).
@@ -210,10 +208,9 @@ function verificar() {
 }
 
 function mostrarSugestoes(inputElement) {
-    // 1. Coloca o foco de volta no input (garantindo que ele está ativo)
-    inputElement.focus();
+  // 1. Coloca o foco de volta no input (garantindo que ele está ativo)
+  inputElement.focus();
 }
-
 
 // Função que adiciona a senha digitada
 function addnova(num) {
@@ -247,9 +244,8 @@ function alterarSenhaMenu() {
   } else if (novasenha.length <= 6 && novasenha.length >= 4) {
     alterarSenha();
     let msg = document.getElementById("msg");
-    msg.innerHTML = "cadastrada";
     setTimeout(() => {
-      window.location.href = "página_inicial.html";
+      window.location.href = "pagina_inicial.html";
     }, 2000);
     document
       .querySelectorAll("#senha button")
@@ -291,21 +287,21 @@ function removernova() {
 function Redirecionador(direcao) {
   switch (direcao) {
     case "Programar":
-      window.location.href = "programar.html";
+      window.location.href = "/HTML/programar.html";
       document.getElementById("teclado").classList.add("hidden");
       break;
     case "VerHorarios":
-      window.location.href = "verhorarios.html";
+      window.location.href = "/HTML/verhorarios.html";
       verCadastro();
       break;
     case "Configurar":
-      window.location.href = "configurar.html";
+      window.location.href = "/HTML/configurar.html";
       break;
     case "Cancelar":
-      window.location.href = "página_inicial.html";
+      window.location.href = "/HTML/pagina_inicial.html";
       break;
     case "Menu":
-      window.location.href = "menu.html";
+      window.location.href = "/HTML/menu.html";
       break;
   }
 }
@@ -325,26 +321,29 @@ function addDia(dia) {
 
 //  funções para voltar o programa
 function voltarProgramar() {
-  const inputsVisiveis = [...document.querySelectorAll(".inputs")].some(
-    (el) => !el.classList.contains("hidden")
-  );
-   document
-      .getElementById("msg").innerHTML= "";
-  document.querySelectorAll(".inputs").forEach((el) => el.value = "");
-  if (inputsVisiveis) {
-    document
-      .querySelectorAll(".inputs")
-      .forEach((el) => el.classList.add("hidden"));
-    document
-      .querySelectorAll("#botoes")
-      .forEach((el) => el.classList.remove("hidden"));
-   
-    contadorFunçãoVoltar = 0; // 🔴 resetar contador aqui
-    return; // não sai da página ainda
-  }
+  // Esconde todos os inputs
+  document.querySelectorAll(".inputs").forEach((el) => el.classList.add("hidden"));
+  // Mostra os botões de dias
+  document.querySelectorAll("#botoes").forEach((el) => el.classList.remove("hidden"));
+  // Esconde a mensagem
+  document.getElementById("msg").classList.add("hidden");
+
   contadorFunçãoVoltar++;
-  if (contadorFunçãoVoltar >= 1) {
-    window.history.back();
+
+  // Se o usuário clicar duas vezes em voltar, volta para a página anterior
+  if (contadorFunçãoVoltar === 2) {
+    // Verifica se todos os inputs estão hidden
+    const inputs = document.getElementsByClassName("inputs");
+    let todosHidden = true;
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains("hidden")) {
+        todosHidden = false;
+        break;
+      }
+    }
+    if (todosHidden) {
+      window.history.back();
+    }
     contadorFunçãoVoltar = 0;
   }
 }
@@ -488,10 +487,10 @@ async function verCadastro() {
         </p>
       </div>
       <button class="botoes" onclick="abrirEditar(${remedio.id})">
-        <img src="https://cdn.discordapp.com/attachments/1132706730900459601/1421598752770097265/image.png?ex=68d99e82&is=68d84d02&hm=ee4fe9d639fe593e1ed4d38773b570d30f13ec7c98db2826633ff7efc07d409b&" alt="Editar" />
+        <img src="/images/editar.png" alt="Editar" />
       </button>
       <button class="botoes" onclick="removerRemedio(${remedio.id})">
-        <img src="https://cdn.discordapp.com/attachments/1132706730900459601/1421598915576336516/image.png?ex=68d99ea9&is=68d84d29&hm=cd1f761c25146711a1c45a211d96af65adf2e8ed83c4fd0402f6b1e231e7b7af&" alt="Remover" />
+        <img src="/images/remover.png" alt="Remover" />
       </button>
     `;
     container.appendChild(div);

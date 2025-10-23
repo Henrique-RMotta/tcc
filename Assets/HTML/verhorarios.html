@@ -33,7 +33,7 @@
       </div> -->
     </div>
      <div class="inputs  hidden">
-            <input type="text" id="nome-editar" placeholder="NOME" />
+            <input type="text" id="nome-editar" list="listaRemedios" placeholder="NOME" />
             <input type="text" id="hora-editar" placeholder="00:00" />
             <select id="slot-editar">
                 <option value="">Slot</option>
@@ -60,9 +60,22 @@
          <div class="voltar">
             <button onclick="voltarVerHorarios()">VOLTAR</button>
     </div>
+     <datalist id="listaRemedios">
+        <option value=""></option>
+        <option value="Dipirona (Analgésico/Febre)"></option>
+        <option value="Paracetamol (Analgésico/Febre)"></option>
+        <option value="Ibuprofeno (Anti-inflamatório/Dor)"></option>
+        <option value="Dorflex (Relaxante Muscular/Cefaleia)"></option>
+        <option value="Neosaldina (Cefaleia/Dor)"></option>
+        <option value="AAS / Aspirina (Analgésico/Antitérmico)"></option>
+        <option value="Diclofenaco (Anti-inflamatório)"></option>
+        <option value="Cimegripe (Analgésico/Sintomas de Gripe)"></option>
+        <option value="Novalgina (Marca de Dipirona)"></option>
+        <option value="Voltaren (Marca de Diclofenaco)"></option>
+      </datalist>
     </div>
    
-    <script src="/script.js"></script>
+    <script src="/script/script.js"></script>
   </body>
   <style>
       body,
@@ -198,23 +211,42 @@
     }
 
     .inputs input {
-        height: 70px;
-        width:  fit-content;
-        min-width: 200px;
-        max-width: 250px;
-        border-radius: 50px;
-        border-style: solid;
-        border-width: 2px;
-        background-color: #ffffff;
-        border-color: #7f32b3;
-        text-align: center;
-        font-family: "Lilita One";
-        font-size: 50px;
-        -webkit-text-stroke-width: 2px;
-        /* Define a largura do contorno */
-        -webkit-text-stroke-color: #a43cc0;
-        /* Define a cor do contorno */
-        color: #ffffff;
+      height: 70px;
+      width: 250px;
+      border-radius: 50px;
+      border-style: solid;
+      border-width: 2px;
+      background-color: #ffffff;
+      border-color: #7f32b3;
+      text-align: center;
+      font-family: "Lilita One";
+      font-size: 50px;
+      -webkit-text-stroke-width: 2px;
+      /* Define a largura do contorno */
+      -webkit-text-stroke-color: #a43cc0;
+      /* Define a cor do contorno */
+      -webkit-text-stroke-width: 2px;
+      /* Define a largura do contorno */
+      -webkit-text-stroke-color: #a43cc0;
+      /* Define a cor do contorno */
+      color: #ffffff;
+      box-shadow: 0px 10px 5px #7f32b3;
+      appearance: none;
+      /* Remove o estilo padrão */
+      -webkit-appearance: none;
+      /* Safari/Chrome */
+      -moz-appearance: none;
+      /* Firefox */
+      /* mantém o fundo */
+      color: #ffffff;
+      /* cor da fonte */
+      position: relative;
+      background: #ffffff
+        url("/images/seta.png")
+        no-repeat right 20px center;
+      background-size: 20px;
+      padding-right: 40px;
+      /* espaço pro ícone não sobrepor o texto */
     }
 
     ::placeholder {
@@ -285,7 +317,7 @@
         font-size: 16px;
         
       }
-        .modal {
+      .modal {
         background-color: #A43CC0;
         padding: 20px;
         border-radius: 10px;
@@ -297,7 +329,7 @@
         border-width: 5px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .btn-fechar {
+      .btn-fechar {
         background: red;
         color: white;
         border: none;

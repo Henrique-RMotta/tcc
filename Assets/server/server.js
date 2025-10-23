@@ -6,7 +6,8 @@ const porta = 3000;
 const bodyParser = require('body-parser');
 const led1 = new Gpio(4,{mode:Gpio.OUTPUT});
 const buzzer = new Gpio(26, {mode:Gpio.OUTPUT});
-const db = new sqlite3.Database('/home/mottaaryana/tcc/dispenser.db');
+const db = new sqlite3.Database('/home/mottaaryana/tcc/Assets/server/dispenser.db');
+const path = require("path");
 app.use(bodyParser.json())
 // Banco de Dados  
 
@@ -26,10 +27,51 @@ db.run(`CREATE TABLE IF NOT EXISTS senha (
 app.listen(porta, () => {
     console.log("Servidor Iniciado em: http://192.168.0.97:3000/")
 })
+// Remove o 'Assets' do final
+app.use(express.static(path.join(__dirname, '..')));
+// CORREÇÃO: Certifique-se de incluir a pasta 'Assets' no caminho para o HTML
+app.get("/", (req, res) => {
+    const caminhoCompleto = path.join("/home/mottaaryana/tcc/Assets/HTML/pagina_inicial.html");
+    console.log("Carregando:", caminhoCompleto);
+    res.sendFile(caminhoCompleto);
+});
+app.get("/", (req, res) => {
+    res.sendFile("/home/mottaaryana/tcc/Assets/HTML/pagina_inicial.html");
+});
 
-db.get("SELECT COUNT(*) as contador FROM senha", [], (err,row) => {
-  if (row.contador === 0) {
-    db.run("INSERT INTO senha (senha) VALUES(?)", ["1234"]);
+app.get("/menu", (req, res) => {
+    res.sendFile("/home/mottaaryana/tcc/Assets/HTML/menu.html");
+});
+
+// Adiciona para todas as outras páginas que você tem
+app.get("/configurar", (req, res) => {
+    res.sendFile("/home/mottaaryana/tcc/Assets/HTML/configurar.html");
+});
+
+app.get("/programar", (req, res) => {
+    res.sendFile("/home/mottaaryana/tcc/Assets/HTML/programar.html");
+});
+
+app.get("/verhorarios", (req, res) => {
+    res.sendFile("/home/mottaaryana/tcc/Assets/HTML/verhorarios.html");
+});
+// Agora faz a verificação com segurança
+db.get("SELECT COUNT(*) as contador FROM senha", [], (err, row) => {
+  if (err) {
+    console.error("Erro ao contar senhas:", err);
+    return;
+  }
+
+  if (row && row.contador === 0) {
+    db.run("INSERT INTO senha (senha) VALUES (?)", ["1234"], (err) => {
+      if (err) {
+        console.error("Erro ao inserir senha padrão:", err);
+      } else {
+        console.log("Senha padrão '1234' criada com sucesso!");
+      }
+    });
+  } else {
+    console.log("Senha já existente ou tabela acessível com sucesso.");
   }
 });
 let buzzerInterval = null;
@@ -70,10 +112,7 @@ app.get('/verSenha',(req,res) => {
     res.send(row);
   })
 })
-app.use(express.static('HTML'));
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/HTML/página_inicial.html');
-});
+
 
 app.post('/motorLigar', (req, res) => {
  /* const { posicao } = req.body; -- ESTE É O CODIGO COMO DEVERIA SER
