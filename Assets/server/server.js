@@ -23,6 +23,10 @@ db.run(`CREATE TABLE IF NOT EXISTS remedios (
 db.run(`CREATE TABLE IF NOT EXISTS senha (
   senha INTEGER NOT NULL
   ) `);
+db.run(`CREATE TABLE IF NOT EXISTS modal (
+  modalAberto Integer CHECK(modalAberto IN (0, 1)) default 0 
+  )`);
+
 
 app.listen(porta, () => {
     console.log("Servidor Iniciado em: http://192.168.0.97:3000/")
@@ -95,6 +99,39 @@ app.post (`/buzzerDesligar`, (req,res) => {
   res.status(200).send("Buzzer Desligado");
 } )
 
+
+// abrirModal: seta modalAberto = 1 (ok)
+app.post('/abrirModal', (req,res) => {
+  db.run("UPDATE modal SET modalAberto = 1", [], function(err) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Erro ao setar o modal");
+    } else {
+      res.status(200).send("Modal aberto !");
+    }
+  })
+})
+
+// verificarModal: rota com '/' e retorna JSON seguro
+app.get('/verificarModal', (req,res) => {
+  db.get('SELECT * FROM modal LIMIT 1', [], (err,row) =>{
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ error: "Erro ao verificar o estado do modal" });
+    }
+    // Se não existir linha, retorne objeto padrão
+    if (!row) return res.status(200).json({ modalAberto: row ?  row.modalAberto :  0 });
+    return res.status(200).json({ modalAberto: row.modalAberto });
+  })
+})
+
+// opcional: endpoint para limpar/resetar modal (fechar)
+app.post('/fecharModal', (req, res) => {
+  db.run("UPDATE modal SET modalAberto = 0", [], function(err) {
+    if (err) return res.status(500).send("Erro ao fechar modal");
+    res.status(200).send("Modal fechado");
+  });
+});
 app.post('/alterarSenha', (req,res) => {
   const { senhanova } = req.body;
   if (!senhanova) return res.status(400).send("Informe a nova senha");
